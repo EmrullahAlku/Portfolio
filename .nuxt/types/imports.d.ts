@@ -164,7 +164,6 @@ declare global {
   const tryOnScopeDispose: typeof import('../../node_modules/@vueuse/core')['tryOnScopeDispose']
   const tryOnUnmounted: typeof import('../../node_modules/@vueuse/core')['tryOnUnmounted']
   const tryUseNuxtApp: typeof import('../../node_modules/nuxt/dist/app/nuxt')['tryUseNuxtApp']
-  const tw: typeof import('../../node_modules/@nuxtjs/tailwindcss/dist/runtime/utils')['autocompleteUtil']
   const unref: typeof import('../../node_modules/vue')['unref']
   const unrefElement: typeof import('../../node_modules/@vueuse/core')['unrefElement']
   const until: typeof import('../../node_modules/@vueuse/core')['until']
@@ -598,7 +597,6 @@ declare module 'vue' {
     readonly tryOnScopeDispose: UnwrapRef<typeof import('../../node_modules/@vueuse/core')['tryOnScopeDispose']>
     readonly tryOnUnmounted: UnwrapRef<typeof import('../../node_modules/@vueuse/core')['tryOnUnmounted']>
     readonly tryUseNuxtApp: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/nuxt')['tryUseNuxtApp']>
-    readonly tw: UnwrapRef<typeof import('../../node_modules/@nuxtjs/tailwindcss/dist/runtime/utils')['autocompleteUtil']>
     readonly unref: UnwrapRef<typeof import('../../node_modules/vue')['unref']>
     readonly unrefElement: UnwrapRef<typeof import('../../node_modules/@vueuse/core')['unrefElement']>
     readonly until: UnwrapRef<typeof import('../../node_modules/@vueuse/core')['until']>

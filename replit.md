@@ -7,25 +7,25 @@ This is a modern portfolio website built with Nuxt 3 and Vue for Emrullah Alku. 
 ## System Architecture
 
 ### Frontend Architecture
-- **Framework**: React 18 with TypeScript
-- **Routing**: Wouter for client-side routing
-- **Styling**: Tailwind CSS with custom design system
-- **UI Components**: Radix UI primitives with custom shadcn/ui components
-- **Animations**: Framer Motion for smooth transitions and interactions
-- **State Management**: TanStack Query for server state management
-- **Build Tool**: Vite for development and production builds
+- **Framework**: Nuxt 3 with Vue 3 and TypeScript
+- **Routing**: Nuxt file-based routing system
+- **Styling**: Custom CSS with CSS variables for theming
+- **UI Components**: Custom Vue components with Heroicons and Simple Icons
+- **Animations**: CSS animations and transitions
+- **State Management**: Vue Composition API with built-in reactivity
+- **Build Tool**: Vite (built into Nuxt 3)
 
-### Backend Architecture
-- **Framework**: Express.js with TypeScript
-- **Runtime**: Node.js 20
-- **Database ORM**: Drizzle ORM with PostgreSQL dialect
-- **Session Management**: In-memory storage with option for PostgreSQL sessions
-- **File Structure**: Modular route handlers with separate storage abstraction
+### Design System
+- **Theme**: Light/Dark mode support with CSS variables
+- **Icons**: Heroicons for UI, Simple Icons for brand logos
+- **Typography**: Inter font family with responsive sizing
+- **Colors**: Custom color palette with gradient accents
+- **Layout**: CSS Grid and Flexbox for responsive design
 
 ### Development Environment
 - **Package Manager**: npm
-- **Development Server**: Vite dev server with HMR
-- **Database**: PostgreSQL 16 (configurable via environment)
+- **Development Server**: Nuxt dev server with HMR
+- **Runtime**: Node.js 20
 - **Deployment Platform**: Replit with autoscale deployment target
 
 ## Key Components

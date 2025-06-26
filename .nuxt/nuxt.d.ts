@@ -1,7 +1,6 @@
 /// <reference types="@vueuse/nuxt" />
 /// <reference types="@nuxt/ui" />
 /// <reference types="@pinia/nuxt" />
-/// <reference types="@nuxtjs/tailwindcss" />
 /// <reference types="@nuxtjs/color-mode" />
 /// <reference types="@nuxt/image" />
 /// <reference types="@nuxt/telemetry" />

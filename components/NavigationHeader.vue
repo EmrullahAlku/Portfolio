@@ -1,113 +1,295 @@
 <template>
-  <div class="fixed top-0 left-1/2 transform -translate-x-1/2 z-40 navigation-header">
-    <div class="relative">
-      <!-- Inverted Half Circle Name Display -->
-      <div
-        :class="[
-          isHovered || isMenuOpen ? 'full-circle' : 'inverted-half-circle',
-          'bg-gradient-to-r from-blue-600 to-purple-600 w-48 h-24 flex items-start justify-center pt-4 cursor-pointer shadow-2xl hover:shadow-purple-500/25 transition-all duration-500'
-        ]"
-        @click="handleClick"
-        @mouseenter="isHovered = true"
-        @mouseleave="handleMouseLeave"
-      >
-        <h1 class="text-white font-bold text-lg tracking-wide">Emrullah Alku</h1>
+  <div class="navigation-container">
+    <!-- Inverted Half Circle Navigation -->
+    <div 
+      class="inverted-navigation"
+      :class="{ 'expanded': isExpanded }"
+      @mouseenter="handleMouseEnter"
+      @mouseleave="handleMouseLeave"
+      @click="toggleMenu"
+    >
+      <div class="profile-container">
+        <img 
+          src="https://via.placeholder.com/80x80/6366f1/ffffff?text=EA" 
+          alt="Emrullah Alku"
+          class="profile-image"
+        />
+        <div class="profile-info">
+          <h3>Emrullah Alku</h3>
+          <p>Full-Stack Developer</p>
+        </div>
       </div>
       
-      <!-- Profile Photo -->
-      <Transition
-        enter-active-class="transition-all duration-300"
-        enter-from-class="opacity-0 scale-75"
-        enter-to-class="opacity-100 scale-100"
-        leave-active-class="transition-all duration-300"
-        leave-from-class="opacity-100 scale-100"
-        leave-to-class="opacity-0 scale-75"
-      >
-        <img
-          v-if="isHovered || isMenuOpen"
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&h=200"
-          alt="Emrullah Alku Profile Photo"
-          class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full object-cover cursor-pointer"
-          @click="handleProfileClick"
-        />
-      </Transition>
-      
-      <!-- Circular Menu Around Profile -->
-      <Transition
-        enter-active-class="transition-all duration-500"
-        enter-from-class="opacity-0 scale-50"
-        enter-to-class="opacity-100 scale-100"
-        leave-active-class="transition-all duration-500"
-        leave-from-class="opacity-100 scale-100"
-        leave-to-class="opacity-0 scale-50"
-      >
-        <div 
-          v-if="isMenuOpen" 
-          class="circular-menu absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-        >
-          <div
-            v-for="(item, index) in menuItems"
-            :key="item.id"
-            :class="[
-              'circular-menu-item',
-              `menu-item-${index + 1}`,
-              'nav-item'
-            ]"
-            :style="{ animationDelay: `${index * 0.1}s` }"
-            @click="$emit('navigate', item.id)"
-          >
-            <Icon :name="item.icon" :class="item.color" size="24" />
-          </div>
+      <!-- Dark Mode Toggle -->
+      <button @click.stop="toggleDarkMode" class="theme-toggle">
+        <Icon :name="isDark ? 'heroicons:sun' : 'heroicons:moon'" />
+      </button>
+    </div>
+
+    <!-- Circular Menu Overlay -->
+    <div 
+      v-if="isMenuOpen" 
+      class="menu-overlay"
+      @click="closeMenu"
+    >
+      <div class="circular-menu">
+        <div class="menu-center">
+          <img 
+            src="https://via.placeholder.com/100x100/6366f1/ffffff?text=EA" 
+            alt="Emrullah Alku"
+            class="center-profile"
+          />
         </div>
-      </Transition>
+        
+        <!-- Navigation Items -->
+        <NuxtLink 
+          v-for="(item, index) in menuItems" 
+          :key="item.name"
+          :to="item.path"
+          class="circular-menu-item"
+          :class="`menu-item-${index + 1}`"
+          @click="closeMenu"
+        >
+          <Icon :name="item.icon" size="24" />
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-const props = defineProps({
-  isMenuOpen: Boolean
-})
+import { ref, computed, onMounted } from 'vue'
 
-const emit = defineEmits(['menu-toggle', 'navigate'])
+const colorMode = useColorMode()
+const isExpanded = ref(false)
+const isMenuOpen = ref(false)
 
-const isHovered = ref(false)
+const isDark = computed(() => colorMode.value === 'dark')
 
 const menuItems = [
-  { id: 'home', icon: 'heroicons:home', color: 'text-blue-600' },
-  { id: 'education', icon: 'heroicons:academic-cap', color: 'text-purple-600' },
-  { id: 'repositories', icon: 'simple-icons:github', color: 'text-gray-700 dark:text-gray-300' },
-  { id: 'about', icon: 'heroicons:user', color: 'text-emerald-500' },
-  { id: 'contact', icon: 'heroicons:envelope', color: 'text-amber-500' }
+  { name: 'Home', path: '/', icon: 'heroicons:home' },
+  { name: 'Education', path: '/education', icon: 'heroicons:academic-cap' },
+  { name: 'Repositories', path: '/repositories', icon: 'heroicons:code-bracket' },
+  { name: 'About', path: '/about', icon: 'heroicons:user' },
+  { name: 'Contact', path: '/contact', icon: 'heroicons:envelope' }
 ]
 
-const handleClick = () => {
-  if (!props.isMenuOpen) {
-    emit('menu-toggle', true)
-  }
-}
-
-const handleProfileClick = () => {
-  if (props.isMenuOpen) {
-    emit('menu-toggle', false)
-  }
+const handleMouseEnter = () => {
+  isExpanded.value = true
 }
 
 const handleMouseLeave = () => {
-  if (!props.isMenuOpen) {
-    isHovered.value = false
+  if (!isMenuOpen.value) {
+    isExpanded.value = false
   }
 }
 
-watch(() => props.isMenuOpen, (newValue) => {
-  if (!newValue) {
-    isHovered.value = false
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+  if (!isMenuOpen.value) {
+    isExpanded.value = false
   }
-})
+}
+
+const closeMenu = () => {
+  isMenuOpen.value = false
+  isExpanded.value = false
+}
+
+const toggleDarkMode = () => {
+  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+}
 </script>
 
 <style scoped>
+.navigation-container {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.inverted-navigation {
+  position: relative;
+  width: 120px;
+  height: 60px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 60px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dark .inverted-navigation {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.inverted-navigation.expanded {
+  width: 300px;
+  height: 150px;
+  border-radius: 0 0 150px 150px;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.expanded .profile-container {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+}
+
+.profile-info h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0;
+}
+
+.profile-info p {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.expanded .theme-toggle {
+  opacity: 1;
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+  transform: scale(1.05);
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.dark .menu-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.circular-menu {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.menu-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.center-profile {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--primary);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
 .circular-menu-item {
-  animation: menuItemSlideIn 0.3s ease-out;
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: var(--foreground);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  animation: menuItemSlideIn 0.5s ease-out;
+}
+
+.dark .circular-menu-item {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.circular-menu-item:hover {
+  transform: scale(1.1);
+  background: var(--accent);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+.dark .circular-menu-item:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Circular positioning */
+.menu-item-1 { top: 20px; left: 50%; transform: translateX(-50%); }
+.menu-item-2 { top: 60px; right: 40px; }
+.menu-item-3 { top: 50%; right: 20px; transform: translateY(-50%); }
+.menu-item-4 { bottom: 60px; right: 40px; }
+.menu-item-5 { bottom: 20px; left: 50%; transform: translateX(-50%); }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes menuItemSlideIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 </style>

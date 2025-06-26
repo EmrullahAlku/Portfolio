@@ -124,14 +124,8 @@
       "#imports": [
         "./imports"
       ],
-      "#tailwindcss": [
-        "./tailwind"
-      ],
-      "#tailwindcss/sources": [
-        "./tailwindcss/sources"
-      ],
       "#app-manifest": [
-        "./manifest/meta/dev.json"
+        "./manifest/meta/dev"
       ],
       "#components": [
         "./components"
@@ -185,8 +179,6 @@
     "../node_modules/@pinia/nuxt/dist/runtime",
     "../node_modules/@vueuse/nuxt/runtime",
     "../node_modules/@vueuse/nuxt/dist/runtime",
-    "../node_modules/@nuxtjs/tailwindcss/runtime",
-    "../node_modules/@nuxtjs/tailwindcss/dist/runtime",
     "../node_modules/@nuxtjs/color-mode/runtime",
     "../node_modules/@nuxtjs/color-mode/dist/runtime",
     "../node_modules/@nuxt/image/runtime",
@@ -207,7 +199,6 @@
     "../node_modules/@nuxt/ui/node_modules",
     "../node_modules/@pinia/nuxt/node_modules",
     "../node_modules/@vueuse/nuxt/node_modules",
-    "../node_modules/@nuxtjs/tailwindcss/node_modules",
     "../node_modules/@nuxtjs/color-mode/node_modules",
     "../node_modules/@nuxt/image/node_modules",
     "../node_modules/nuxt/node_modules/@nuxt/devtools/node_modules",
@@ -222,8 +213,6 @@
     "../node_modules/@pinia/nuxt/dist/runtime/server",
     "../node_modules/@vueuse/nuxt/runtime/server",
     "../node_modules/@vueuse/nuxt/dist/runtime/server",
-    "../node_modules/@nuxtjs/tailwindcss/runtime/server",
-    "../node_modules/@nuxtjs/tailwindcss/dist/runtime/server",
     "../node_modules/@nuxtjs/color-mode/runtime/server",
     "../node_modules/@nuxtjs/color-mode/dist/runtime/server",
     "../node_modules/@nuxt/image/runtime/server",

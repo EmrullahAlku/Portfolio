@@ -1,126 +1,425 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 theme-transition py-20">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-16 animate-fadeInUp">
-        <h1 class="text-5xl font-bold text-gray-800 dark:text-white mb-6">
-          <Icon name="heroicons:academic-cap" class="inline-block text-blue-600 mr-4" size="48" />
-          Education & Certifications
-        </h1>
-        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-          Continuous learning and professional development in technology and design
+  <div class="education-page">
+    <div class="container">
+      <header class="page-header">
+        <h1 class="page-title">Eğitim</h1>
+        <p class="page-subtitle">
+          Akademik geçmişim ve sürekli öğrenme yolculuğum
         </p>
-      </div>
-      
+      </header>
+
       <!-- Education Timeline -->
-      <div class="mb-20 animate-fadeInUp">
-        <h2 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-12">Academic Background</h2>
-        <div class="max-w-4xl mx-auto">
-          <div class="relative">
-            <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-600 to-purple-600"></div>
-            
-            <div class="relative flex items-center mb-12 animate-fadeInUp">
-              <div class="flex-1 text-right pr-8">
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-                  <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Bachelor of Computer Science</h3>
-                  <p class="text-blue-600 dark:text-blue-400 font-semibold mb-2">Istanbul Technical University</p>
-                  <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">2019 - 2023</p>
-                  <p class="text-gray-600 dark:text-gray-300">Specialized in software engineering, algorithms, and web development with focus on modern frameworks and database design.</p>
-                </div>
+      <section class="education-timeline">
+        <div class="timeline-item" v-for="education in educationList" :key="education.id">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="education-card">
+              <div class="education-header">
+                <h3 class="institution">{{ education.institution }}</h3>
+                <span class="period">{{ education.period }}</span>
               </div>
-              <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full border-4 border-white dark:border-gray-900"></div>
-              <div class="flex-1 pl-8"></div>
-            </div>
-            
-            <div class="relative flex items-center mb-12 animate-fadeInUp">
-              <div class="flex-1 pr-8"></div>
-              <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-purple-600 rounded-full border-4 border-white dark:border-gray-900"></div>
-              <div class="flex-1 pl-8">
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-                  <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">High School Diploma</h3>
-                  <p class="text-purple-600 dark:text-purple-400 font-semibold mb-2">Science High School</p>
-                  <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">2015 - 2019</p>
-                  <p class="text-gray-600 dark:text-gray-300">Mathematics and Science focused curriculum with early introduction to programming and computational thinking.</p>
+              <h4 class="degree">{{ education.degree }}</h4>
+              <p class="description">{{ education.description }}</p>
+              <div class="skills-learned" v-if="education.skills">
+                <h5>Öğrenilen Beceriler:</h5>
+                <div class="skill-tags">
+                  <span v-for="skill in education.skills" :key="skill" class="skill-tag">
+                    {{ skill }}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      
-      <!-- Certifications Grid -->
-      <div class="animate-fadeInUp">
-        <h2 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-12">Professional Certifications</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <CertificationCard 
-            v-for="(certification, index) in certifications" 
-            :key="certification.title"
-            v-bind="certification"
-            class="animate-fadeInUp"
-            :style="{ animationDelay: `${1 + index * 0.1}s` }"
-          />
+      </section>
+
+      <!-- Certifications -->
+      <section class="certifications-section section">
+        <h2 class="section-title text-center mb-8">Sertifikalar</h2>
+        <div class="certifications-grid">
+          <div 
+            v-for="cert in certifications" 
+            :key="cert.id"
+            class="certification-card"
+          >
+            <div class="cert-icon">
+              <Icon :name="cert.icon" size="32" />
+            </div>
+            <h3 class="cert-title">{{ cert.title }}</h3>
+            <p class="cert-issuer">{{ cert.issuer }}</p>
+            <p class="cert-date">{{ cert.date }}</p>
+            <a v-if="cert.link" :href="cert.link" target="_blank" class="cert-link">
+              Sertifikayı Görüntüle
+              <Icon name="heroicons:arrow-top-right-on-square" size="16" />
+            </a>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <!-- Skills Progress -->
+      <section class="skills-progress section">
+        <h2 class="section-title text-center mb-8">Teknik Beceriler</h2>
+        <div class="skills-list">
+          <div 
+            v-for="skill in technicalSkills" 
+            :key="skill.name"
+            class="skill-progress-item"
+          >
+            <div class="skill-info">
+              <span class="skill-name">{{ skill.name }}</span>
+              <span class="skill-level">{{ skill.level }}%</span>
+            </div>
+            <div class="progress-bar">
+              <div 
+                class="progress-fill" 
+                :style="{ width: skill.level + '%' }"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </template>
 
 <script setup>
-const certifications = [
+useHead({
+  title: 'Eğitim - Emrullah Alku',
+  meta: [
+    {
+      name: 'description',
+      content: 'Emrullah Alku\'nun eğitim geçmişi, sertifikaları ve teknik becerileri. Sürekli öğrenme ve gelişim yolculuğu.'
+    }
+  ]
+})
+
+const educationList = [
   {
-    title: 'Vue.js Developer Certification',
-    issuer: 'Vue Mastery',
-    date: 'March 2023',
-    icon: 'simple-icons:vuedotjs',
-    color: 'green',
-    skills: ['Vue 3', 'Composition API', 'Nuxt 3']
+    id: 1,
+    institution: 'Kocaeli Üniversitesi',
+    degree: 'Bilgisayar Mühendisliği',
+    period: '2019 - 2023',
+    description: 'Yazılım geliştirme, veri yapıları, algoritmalar ve modern web teknolojileri konularında kapsamlı eğitim aldım.',
+    skills: ['JavaScript', 'Python', 'Java', 'SQL', 'Web Development', 'Software Engineering']
   },
   {
-    title: 'Python Django Developer',
-    issuer: 'Django Software Foundation',
-    date: 'January 2023',
-    icon: 'simple-icons:python',
-    color: 'blue',
-    skills: ['Django', 'REST API', 'PostgreSQL']
+    id: 2,
+    institution: 'FreeCodeCamp',
+    degree: 'Full Stack Web Development',
+    period: '2022 - 2023',
+    description: 'Modern web teknolojileri ve full-stack geliştirme konularında pratik odaklı eğitim.',
+    skills: ['React', 'Node.js', 'MongoDB', 'Express.js', 'RESTful APIs']
   },
   {
-    title: 'UX/UI Design Professional',
-    issuer: 'Google UX Design',
-    date: 'October 2022',
-    icon: 'simple-icons:figma',
-    color: 'purple',
-    skills: ['Figma', 'User Research', 'Prototyping']
-  },
-  {
-    title: 'Video Production Specialist',
-    issuer: 'Adobe Certified Expert',
-    date: 'September 2022',
-    icon: 'simple-icons:adobepremierepro',
-    color: 'indigo',
-    skills: ['Premiere Pro', 'After Effects', 'Color Grading']
-  },
-  {
-    title: 'Modern JavaScript Developer',
-    issuer: 'FreeCodeCamp',
-    date: 'June 2022',
-    icon: 'simple-icons:javascript',
-    color: 'yellow',
-    skills: ['ES6+', 'Async/Await', 'APIs']
-  },
-  {
-    title: 'Motion Graphics Designer',
-    issuer: 'School of Motion',
-    date: 'August 2022',
-    icon: 'simple-icons:adobeaftereffects',
-    color: 'pink',
-    skills: ['Animation', 'Typography', 'Visual Effects']
+    id: 3,
+    institution: 'Udemy',
+    degree: 'Advanced Vue.js & Nuxt.js',
+    period: '2023 - 2024',
+    description: 'Vue.js ve Nuxt.js framework\'leri ile modern single-page application geliştirme.',
+    skills: ['Vue.js', 'Nuxt.js', 'Composition API', 'State Management']
   }
 ]
 
-// SEO
-useHead({
-  title: 'Education - Emrullah Alku',
-  meta: [
-    { name: 'description', content: 'Academic background and professional certifications in software development and design.' }
-  ]
-})
+const certifications = [
+  {
+    id: 1,
+    title: 'JavaScript Algorithms and Data Structures',
+    issuer: 'FreeCodeCamp',
+    date: 'Ocak 2023',
+    icon: 'simple-icons:freecodecamp',
+    link: 'https://freecodecamp.org'
+  },
+  {
+    id: 2,
+    title: 'Responsive Web Design',
+    issuer: 'FreeCodeCamp',
+    date: 'Aralık 2022',
+    icon: 'simple-icons:freecodecamp',
+    link: 'https://freecodecamp.org'
+  },
+  {
+    id: 3,
+    title: 'Vue.js Complete Guide',
+    issuer: 'Udemy',
+    date: 'Haziran 2023',
+    icon: 'simple-icons:udemy',
+    link: 'https://udemy.com'
+  },
+  {
+    id: 4,
+    title: 'Python for Data Science',
+    issuer: 'Coursera',
+    date: 'Mart 2023',
+    icon: 'simple-icons:coursera',
+    link: 'https://coursera.org'
+  }
+]
+
+const technicalSkills = [
+  { name: 'JavaScript', level: 90 },
+  { name: 'Vue.js / Nuxt.js', level: 85 },
+  { name: 'HTML/CSS', level: 95 },
+  { name: 'Python', level: 80 },
+  { name: 'Node.js', level: 75 },
+  { name: 'SQL', level: 70 },
+  { name: 'Git', level: 85 },
+  { name: 'Figma', level: 80 }
+]
 </script>
+
+<style scoped>
+.education-page {
+  min-height: 100vh;
+  padding-top: 120px;
+  padding-bottom: 4rem;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 1rem;
+}
+
+.page-subtitle {
+  font-size: 1.2rem;
+  color: var(--muted-foreground);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.education-timeline {
+  position: relative;
+  margin: 4rem 0;
+}
+
+.education-timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-left: 60px;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: 11px;
+  top: 20px;
+  width: 18px;
+  height: 18px;
+  background: var(--primary);
+  border-radius: 50%;
+  border: 3px solid var(--background);
+  z-index: 1;
+}
+
+.education-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.dark .education-card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.education-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.dark .education-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.education-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.institution {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0;
+}
+
+.period {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.degree {
+  font-size: 1.25rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.description {
+  color: var(--muted-foreground);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.skills-learned h5 {
+  color: var(--foreground);
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+}
+
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.certification-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.dark .certification-card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.certification-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.dark .certification-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.cert-icon {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.cert-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.cert-issuer {
+  color: var(--muted-foreground);
+  margin-bottom: 0.5rem;
+}
+
+.cert-date {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.cert-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.cert-link:hover {
+  color: var(--primary-indigo);
+}
+
+.skills-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.skill-progress-item {
+  margin-bottom: 2rem;
+}
+
+.skill-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.skill-name {
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.skill-level {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--secondary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(45deg, var(--primary-indigo), var(--primary-purple));
+  border-radius: 4px;
+  transition: width 0.8s ease;
+}
+
+@media (max-width: 768px) {
+  .education-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+  }
+  
+  .certifications-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

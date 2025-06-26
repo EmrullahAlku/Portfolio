@@ -41,7 +41,6 @@ export { useOverlay } from '../node_modules/@nuxt/ui/dist/runtime/composables/us
 export { portalTargetInjectionKey, usePortal } from '../node_modules/@nuxt/ui/dist/runtime/composables/usePortal';
 export { useToast } from '../node_modules/@nuxt/ui/dist/runtime/composables/useToast';
 export { defineStore, acceptHMRUpdate, usePinia, storeToRefs } from '../node_modules/@pinia/nuxt/dist/runtime/composables';
-export { autocompleteUtil as tw } from '../node_modules/@nuxtjs/tailwindcss/dist/runtime/utils';
 export { useColorMode } from '../node_modules/@nuxtjs/color-mode/dist/runtime/composables';
 export { useImage } from '../node_modules/@nuxt/image/dist/runtime/composables';
 export { useNuxtDevTools } from '../node_modules/nuxt/node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';
