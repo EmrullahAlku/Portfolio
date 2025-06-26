@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a modern full-stack web application built as a personal portfolio website. The application showcases a developer's work, education, and skills through an interactive and visually appealing interface. It combines a React frontend with an Express.js backend, utilizing PostgreSQL for data persistence through Drizzle ORM.
+This is a modern portfolio website built with Nuxt 3 and Vue for Emrullah Alku. The application showcases software development and design skills through an interactive interface featuring innovative navigation animations. The site includes a unique inverted half-circle navigation that expands into a circular menu with icons, smooth transitions, and comprehensive portfolio sections.
 
 ## System Architecture
 
