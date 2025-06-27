@@ -104,8 +104,15 @@
 
 <script setup>
 import { ref } from "vue";
+import { useAsyncData } from "#app";
+import { useRoute } from "vue-router";
+
 const route = useRoute();
-const { data: doc } = await useAsyncData(route.path, () => {
+const {
+  data: doc,
+  pending,
+  error,
+} = await useAsyncData("education", () => {
   return queryCollection("education").path(route.path).first();
 });
 
