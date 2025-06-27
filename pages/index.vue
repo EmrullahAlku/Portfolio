@@ -1,151 +1,125 @@
 <template>
   <div class="home-page">
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="container">
-        <div class="hero-content">
-          <div class="hero-text">
-            <h1 class="hero-title">
-              Merhaba, Ben 
-              <span class="text-gradient">Emrullah Alku</span>
-            </h1>
-            <p class="hero-subtitle">
-              Full-Stack Developer & Creative Designer
-            </p>
-            <p class="hero-description">
-              Modern web teknolojileri ve yaratıcı tasarım çözümleri ile 
-              dijital deneyimler oluşturuyorum. HTML/CSS, JavaScript, Nuxt.js/Vue 
-              ve Python/Django ile geliştirme yapıyorum.
-            </p>
-            <div class="hero-buttons">
-              <NuxtLink to="/repositories" class="btn btn-primary">
-                Projelerimi Gör
-              </NuxtLink>
-              <NuxtLink to="/contact" class="btn btn-secondary">
-                İletişime Geç
-              </NuxtLink>
-            </div>
-          </div>
-          <div class="hero-visual">
-            <div class="floating-card floating-animation">
-              <Icon name="heroicons:code-bracket" size="48" />
-            </div>
-            <div class="floating-card floating-animation-delayed">
-              <Icon name="heroicons:paint-brush" size="48" />
-            </div>
-            <div class="floating-card floating-animation-delayed-2">
-              <Icon name="heroicons:rocket-launch" size="48" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="skills-section section">
-      <div class="container">
-        <h2 class="section-title text-center mb-8">Yeteneklerim</h2>
-        <div class="skills-grid">
-          <!-- Software Development -->
-          <div class="skill-category">
-            <div class="skill-header">
-              <Icon name="heroicons:code-bracket" size="32" class="skill-icon" />
-              <h3>Software Development</h3>
-            </div>
-            <div class="skill-items">
-              <div class="skill-item">
-                <Icon name="simple-icons:html5" size="24" />
-                <span>HTML/CSS</span>
-              </div>
-              <div class="skill-item">
-                <Icon name="simple-icons:javascript" size="24" />
-                <span>JavaScript</span>
-              </div>
-              <div class="skill-item">
-                <Icon name="simple-icons:nuxtdotjs" size="24" />
-                <span>Nuxt 3/Vue</span>
-              </div>
-              <div class="skill-item">
-                <Icon name="simple-icons:python" size="24" />
-                <span>Python/Django</span>
+    <div v-if="pending" class="loading-state">
+      <p>Yükleniyor...</p>
+    </div>
+    <div v-else-if="error" class="error-state">
+      <p>İçerik yüklenirken bir hata oluştu.</p>
+    </div>
+    <div v-else class="">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-text">
+              <h1 class="hero-title" v-html="hero.title"></h1>
+              <p class="hero-subtitle">{{ hero.subtitle }}</p>
+              <p class="hero-description">{{ hero.description }}</p>
+              <div class="hero-buttons">
+                <NuxtLink
+                  v-for="button in hero.buttons"
+                  :key="button.text"
+                  :to="button.link"
+                  :class="[
+                    'btn',
+                    button.type === 'primary' ? 'btn-primary' : 'btn-secondary',
+                  ]"
+                >
+                  {{ button.text }}
+                </NuxtLink>
               </div>
             </div>
-          </div>
-
-          <!-- Design -->
-          <div class="skill-category">
-            <div class="skill-header">
-              <Icon name="heroicons:paint-brush" size="32" class="skill-icon" />
-              <h3>Design</h3>
-            </div>
-            <div class="skill-items">
-              <div class="skill-item">
-                <Icon name="simple-icons:figma" size="24" />
-                <span>Figma</span>
+            <div class="hero-visual">
+              <div class="floating-card floating-animation">
+                <Icon
+                  :name="hero.visual?.[0]?.icon || 'heroicons:code-bracket'"
+                  size="48"
+                />
               </div>
-              <div class="skill-item">
-                <Icon name="simple-icons:adobephotoshop" size="24" />
-                <span>Photoshop</span>
+              <div class="floating-card floating-animation-delayed">
+                <Icon
+                  :name="hero.visual?.[1]?.icon || 'heroicons:paint-brush'"
+                  size="48"
+                />
               </div>
-              <div class="skill-item">
-                <Icon name="simple-icons:adobepremierepro" size="24" />
-                <span>Premiere Pro</span>
-              </div>
-              <div class="skill-item">
-                <Icon name="simple-icons:adobeaftereffects" size="24" />
-                <span>After Effects</span>
+              <div class="floating-card floating-animation-delayed-2">
+                <Icon
+                  :name="hero.visual?.[2]?.icon || 'heroicons:rocket-launch'"
+                  size="48"
+                />
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- About Preview -->
-    <section class="about-preview section">
-      <div class="container">
-        <div class="about-content">
+      <!-- Skills Section -->
+      <section class="skills-section section">
+        <div class="container">
+          <h2 class="section-title text-center mb-8">Yeteneklerim</h2>
+          <div class="skills-grid">
+            <div
+              v-for="skill in skills"
+              :key="skill.category"
+              class="skill-category"
+            >
+              <div class="skill-header">
+                <Icon :name="skill.icon" size="32" class="skill-icon" />
+                <h3>{{ skill.category }}</h3>
+              </div>
+              <div class="skill-items">
+                <div
+                  v-for="item in skill.items"
+                  :key="item.label"
+                  class="skill-item"
+                >
+                  <Icon :name="item.icon" size="24" />
+                  <span>{{ item.label }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Preview -->
+      <section class="about-preview section">
+        <div class="container about-content">
           <div class="about-text">
-            <h2 class="section-title mb-4">Hakkımda</h2>
+            <h2 class="section-title mb-4">{{ aboutPreview.title }}</h2>
             <p class="about-description">
-              Teknoloji ve tasarım tutkusu ile modern web çözümleri geliştiren bir 
-              full-stack developer'ım. Kullanıcı deneyimini ön planda tutarak, 
-              işlevsel ve estetik web uygulamaları oluşturuyorum.
+              {{ aboutPreview.description }}
             </p>
-            <NuxtLink to="/about" class="btn btn-secondary mt-4">
-              Daha Fazla Bilgi
+            <NuxtLink :to="aboutPreview.link" class="btn btn-secondary mt-4">
+              {{ aboutPreview.linkText }}
             </NuxtLink>
           </div>
-          <div class="about-stats">
-            <div class="stat-item">
-              <div class="stat-number">3+</div>
-              <div class="stat-label">Yıl Deneyim</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">50+</div>
-              <div class="stat-label">Tamamlanan Proje</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">15+</div>
-              <div class="stat-label">Mutlu Müşteri</div>
-            </div>
-          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
 </template>
 
 <script setup>
+import { useAsyncData } from "#app";
+
+const { data, pending, error } = await useAsyncData("index", () =>
+  queryCollection("index").path("/").first()
+);
+
+const hero = computed(() => data.value.hero);
+const skills = computed(() => data.value.skills);
+const aboutPreview = computed(() => data.value.aboutPreview);
+
 useHead({
-  title: 'Ana Sayfa - Emrullah Alku',
+  title: () => (hero.value ? `Ana Sayfa - Emrullah Alku` : "Ana Sayfa"),
   meta: [
     {
-      name: 'description',
-      content: 'Full-Stack Developer ve Creative Designer Emrullah Alku\'nun portfolio website. Modern web teknolojileri ve yaratıcı tasarım çözümleri.'
-    }
-  ]
-})
+      name: "description",
+      content: hero.value ? hero.value.description : "",
+    },
+  ],
+});
 </script>
 
 <style scoped>
@@ -158,7 +132,11 @@ useHead({
   min-height: 80vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, var(--background) 0%, var(--secondary) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--background) 0%,
+    var(--secondary) 100%
+  );
 }
 
 .hero-content {
@@ -345,19 +323,19 @@ useHead({
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .hero-title {
     font-size: 2.5rem;
   }
-  
+
   .hero-buttons {
     flex-direction: column;
   }
-  
+
   .skill-items {
     grid-template-columns: 1fr;
   }
-  
+
   .about-stats {
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;

@@ -1,14 +1,13 @@
 <template>
-  <div>
+  <div @mouseleave="handleMouseLeave">
     <div class="navigation-container">
       <!-- Inverted Half Circle Navigation -->
       <div
         class="inverted-navigation"
         :class="{ expanded: isExpanded }"
         @mouseenter="handleMouseEnter"
-        @mouseleave="handleMouseLeave"
-        @click="toggleMenu"
       >
+        <div v-if="!isExpanded" class="initials">EA</div>
         <div class="profile-container">
           <img
             src="../public/pp.jpg"
@@ -70,11 +69,14 @@ const menuItems = [
   { name: "Contact", path: "/contact", icon: "heroicons:envelope" },
 ];
 
-const menuRadius = 200;
+const menuRadius = ref(20);
+const targetMenuRadius = 200;
+const openTimer = ref(null);
+
 const menuItemsWithStyles = computed(() => {
   const totalItems = menuItems.length;
   const expandedWidth = 300;
-  const centerX = expandedWidth / 2;
+  const centerX = expandedWidth / 2; // Center X position for the menu
   const centerY = 0;
 
   return menuItems.map((item, index) => {
@@ -82,8 +84,8 @@ const menuItemsWithStyles = computed(() => {
     const startAngle = (11 * Math.PI) / 12;
     const angle = startAngle - (index / (totalItems - 1)) * arcAngle;
 
-    const x = centerX + menuRadius * Math.cos(angle);
-    const y = centerY + menuRadius * Math.sin(angle);
+    const x = centerX + menuRadius.value * Math.cos(angle);
+    const y = centerY + menuRadius.value * Math.sin(angle);
     const delay = index * 0.05;
 
     return {
@@ -99,21 +101,18 @@ const menuItemsWithStyles = computed(() => {
 
 const handleMouseEnter = () => {
   isExpanded.value = true;
+  isMenuOpen.value = true;
+  if (openTimer.value) clearTimeout(openTimer.value);
+  openTimer.value = setTimeout(() => {
+    menuRadius.value = targetMenuRadius;
+  }, 0); // delay before expanding radius
 };
 
 const handleMouseLeave = () => {
-  if (!isMenuOpen.value) {
-    isExpanded.value = false;
-  }
-};
-
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
-  if (isMenuOpen.value) {
-    isExpanded.value = true;
-  } else {
-    isExpanded.value = false;
-  }
+  isMenuOpen.value = false;
+  isExpanded.value = false;
+  if (openTimer.value) clearTimeout(openTimer.value);
+  menuRadius.value = 20; // Reset the menu radius
 };
 
 const closeMenu = () => {
@@ -160,6 +159,18 @@ const toggleDarkMode = () => {
   width: 300px;
   height: 150px;
   border-radius: 0 0 150px 150px;
+}
+
+/* Initials in collapsed half-circle */
+.initials {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  z-index: 2;
 }
 
 .profile-container {
@@ -298,7 +309,7 @@ const toggleDarkMode = () => {
 @keyframes menuItemSlideIn {
   0% {
     opacity: 0;
-    transform: scale(0.3);
+    transform: scale(0.5);
   }
   100% {
     opacity: 1;

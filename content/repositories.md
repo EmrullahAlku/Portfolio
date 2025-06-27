@@ -3,7 +3,6 @@ title: Projelerim
 subtitle: Geliştirdiğim web uygulamaları ve açık kaynak projeler
 categories:
   - Tümü
-  - Web App
   - Frontend
   - Full-Stack
   - Mobile

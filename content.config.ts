@@ -97,5 +97,32 @@ export default defineContentConfig({
         ),
       }),
     }),
+    index: defineCollection({
+      type: "page",
+      source: "index.md",
+      schema: z.object({
+        hero: z.object({
+          title: z.string(),
+          subtitle: z.string(),
+          description: z.string(),
+          buttons: z.array(
+            z.object({ text: z.string(), link: z.string(), type: z.string() })
+          ),
+        }),
+        skills: z.array(
+          z.object({
+            category: z.string(),
+            icon: z.string(),
+            items: z.array(z.object({ icon: z.string(), label: z.string() })),
+          })
+        ),
+        aboutPreview: z.object({
+          title: z.string(),
+          description: z.string(),
+          linkText: z.string(),
+          link: z.string(),
+        }),
+      }),
+    }),
   },
 });
