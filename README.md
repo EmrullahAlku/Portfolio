@@ -1,7 +1,7 @@
 # Emrullah Alku - Personal Portfolio
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/emrullahalku/EmrullahPortfolio/main/public/og-image.png" alt="Portfolio Screenshot" width="700"/>
+  <img src="https://raw.githubusercontent.com/emrullahalku/Portfolio/public/image.png" alt="Portfolio Screenshot" width="700"/>
 </div>
 
 <br>
@@ -19,7 +19,7 @@
 
 This is the repository for my personal portfolio website, built to showcase my skills, projects, and professional journey. The entire site is designed to be dynamic and easily manageable, leveraging the power of Nuxt.js and Nuxt Content. All content, from the "About Me" story to my educational background and projects, is managed through simple Markdown files.
 
-**Live Demo:** [**emrullahalku.com**](https://emrullahalku.com)
+**Live Demo:** [**emrullahalku.me**](https://emrullahalku.me)
 
 ### ✨ Features
 
@@ -63,11 +63,11 @@ To get a local copy up and running, follow these simple steps.
 
 1.  Clone the repo:
     ```sh
-    git clone https://github.com/emrullahalku/EmrullahPortfolio.git
+    git clone https://github.com/emrullahalku/Portfolio.git
     ```
 2.  Navigate to the project directory:
     ```sh
-    cd EmrullahPortfolio
+    cd Portfolio
     ```
 3.  Install NPM packages:
     ```sh
@@ -94,7 +94,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Bu repo, yeteneklerimi, projelerimi ve profesyonel yolculuğumu sergilemek amacıyla oluşturduğum kişisel portfolyo siteme aittir. Site, Nuxt.js ve Nuxt Content'in gücünden yararlanılarak tamamen dinamik ve kolayca yönetilebilir olacak şekilde tasarlanmıştır. "Hakkımda" hikayesinden eğitim geçmişime ve projelerime kadar tüm içerik, basit Markdown dosyaları aracılığıyla yönetilmektedir.
 
-**Canlı Demo:** [**emrullahalku.com**](https://emrullahalku.com)
+**Canlı Demo:** [**emrullahalku.me**](https://emrullahalku.me)
 
 ### ✨ Özellikler
 
@@ -138,11 +138,11 @@ Projenin yerel bir kopyasını alıp çalıştırmak için aşağıdaki basit ad
 
 1.  Repoyu klonlayın:
     ```sh
-    git clone https://github.com/emrullahalku/EmrullahPortfolio.git
+    git clone https://github.com/emrullahalku/Portfolio.git
     ```
 2.  Proje dizinine gidin:
     ```sh
-    cd EmrullahPortfolio
+    cd Portfolio
     ```
 3.  NPM paketlerini yükleyin:
     ```sh
