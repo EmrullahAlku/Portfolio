@@ -1,7 +1,7 @@
 # Emrullah Alku - Personal Portfolio
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/emrullahalku/Portfolio/public/image.png" alt="Portfolio Screenshot" width="700"/>
+  <img src="https://github.com/EmrullahAlku/Portfolio/blob/main/public/image.png?raw=true" alt="Portfolio Screenshot" width="700"/>
 </div>
 
 <br>
@@ -13,9 +13,8 @@
 </div>
 
 <details>
-<summary>🇬🇧 English</summary>
 
-## 🇬🇧 About The Project
+## About The Project
 
 This is the repository for my personal portfolio website, built to showcase my skills, projects, and professional journey. The entire site is designed to be dynamic and easily manageable, leveraging the power of Nuxt.js and Nuxt Content. All content, from the "About Me" story to my educational background and projects, is managed through simple Markdown files.
 
@@ -82,80 +81,5 @@ To get a local copy up and running, follow these simple steps.
 ### 📜 License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-</details>
-
----
-
-<details>
-<summary>🇹🇷 Türkçe</summary>
-
-## 🇹🇷 Proje Hakkında
-
-Bu repo, yeteneklerimi, projelerimi ve profesyonel yolculuğumu sergilemek amacıyla oluşturduğum kişisel portfolyo siteme aittir. Site, Nuxt.js ve Nuxt Content'in gücünden yararlanılarak tamamen dinamik ve kolayca yönetilebilir olacak şekilde tasarlanmıştır. "Hakkımda" hikayesinden eğitim geçmişime ve projelerime kadar tüm içerik, basit Markdown dosyaları aracılığıyla yönetilmektedir.
-
-**Canlı Demo:** [**emrullahalku.me**](https://emrullahalku.me)
-
-### ✨ Özellikler
-
-- **Tamamen Dinamik İçerik**: Tüm metinler ve veriler, Nuxt Content kullanılarak yerel Markdown dosyalarından çekilir.
-- **Modern ve Animasyonlu Arayüz**: Akıcı animasyonlara sahip eşsiz dairesel navigasyon menüsü.
-- **Karanlık/Aydınlık Modu**: Kullanıcı konforu için kolay kullanımlı tema değiştirici.
-- **Etkileşimli Öğeler**: Sertifikaları görüntülemek için modallar, filtrelenebilir proje listeleri ve daha fazlası.
-- **SEO Uyumlu**: Arama motorlarında iyi bir görünürlük sağlamak için her sayfaya özel dinamik meta etiketleri.
-- **Duyarlı Tasarım**: Masaüstünden mobil cihazlara kadar tüm cihazlarda tam erişilebilirlik.
-
-### 🛠️ Kullanılan Teknolojiler
-
-- **Framework**: [Nuxt.js](https://nuxt.com/)
-- **İçerik Yönetimi**: [Nuxt Content](https://content.nuxt.com/)
-- **Stil**: CSS Değişkenleri ile özel CSS
-- **İkonlar**: [Nuxt Icon](https://github.com/nuxt-modules/icon)
-- **Dağıtım (Deployment)**: [Vercel](https://vercel.com/)
-
-### 📂 Proje Yapısı
-
-Bu projenin en önemli özelliklerinden biri içerik yönetimi yaklaşımıdır. Tüm sayfa içeriği `/content` dizininde saklanmaktadır.
-
-- `/content/index.md`: Ana sayfa içeriği.
-- `/content/about.md`: "Hakkımda" sayfası içeriği.
-- `/content/education.md`: Eğitim geçmişi, sertifikalar ve yetenekleri içerir.
-- `/content/repositories.md`: Tüm projeleri listeler.
-- `/content/contact.md`: İletişim sayfası bilgileri.
-
-Bu içeriklerin yapısı, `/content.config.ts` dosyasında Zod kullanılarak tanımlanan şemalarla doğrulanır.
-
-### 🚀 Yerel Kurulum ve Çalıştırma
-
-Projenin yerel bir kopyasını alıp çalıştırmak için aşağıdaki basit adımları izleyin.
-
-**Ön Gereksinimler:**
-
-- Node.js (v18.x veya daha yeni)
-- npm veya yarn
-
-**Kurulum:**
-
-1.  Repoyu klonlayın:
-    ```sh
-    git clone https://github.com/emrullahalku/Portfolio.git
-    ```
-2.  Proje dizinine gidin:
-    ```sh
-    cd Portfolio
-    ```
-3.  NPM paketlerini yükleyin:
-    ```sh
-    npm install
-    ```
-4.  Geliştirme sunucusunu çalıştırın:
-    ```sh
-    npm run dev
-    ```
-5.  Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın.
-
-### 📜 Lisans
-
-MIT Lisansı altında dağıtılmaktadır. Daha fazla bilgi için `LICENSE` dosyasına bakın.
 
 </details>
