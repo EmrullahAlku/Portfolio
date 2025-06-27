@@ -1,6 +1,6 @@
 <template>
   <div @mouseleave="handleMouseLeave">
-    <div class="navigation-container">
+    <div :class="['navigation-container', { expanded: isExpanded }]">
       <!-- Inverted Half Circle Navigation -->
       <div
         class="inverted-navigation"
@@ -86,7 +86,7 @@ const menuItemsWithStyles = computed(() => {
 
     const x = centerX + menuRadius.value * Math.cos(angle);
     const y = centerY + menuRadius.value * Math.sin(angle);
-    const delay = index * 0.05;
+    const delay = index * 0.0;
 
     return {
       ...item,
@@ -105,7 +105,7 @@ const handleMouseEnter = () => {
   if (openTimer.value) clearTimeout(openTimer.value);
   openTimer.value = setTimeout(() => {
     menuRadius.value = targetMenuRadius;
-  }, 0); // delay before expanding radius
+  }, 10); // delay before expanding radius
 };
 
 const handleMouseLeave = () => {
@@ -129,9 +129,21 @@ const toggleDarkMode = () => {
 .navigation-container {
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: calc(50% - 60px);
+  transform: translateX(0);
   z-index: 1000;
+  transition:
+    left 0.5s ease,
+    transform 0.5s ease;
+}
+
+/* Shift container when expanded */
+.navigation-container.expanded {
+  transform: translateX(-50%);
+  left: 50%;
+  transition:
+    left 0.5s ease,
+    transform 0.5s ease;
 }
 
 .inverted-navigation {

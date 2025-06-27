@@ -1,7 +1,7 @@
 export const checksums = {
   "about": "v3.5.0--fAQbEqG_l8eVLggsbPlyjz6t1O9IyS1cUL2xPVPAidk",
   "education": "v3.5.0--ygmoE5hM2or2x-TvmrGMkLwU4eVFXfdVDrGIjbSel0s",
-  "repositories": "v3.5.0--y47Cv3VwXNlqZntBe3spWmL2CHZzZxZlc4l7Xn-WK-w",
+  "repositories": "v3.5.0--GAe-t4UijioX5e4PTgCHryn-55rtRJz7ORwg4FuJukE",
   "contact": "v3.5.0--anzst1nx-FlW8sBxGV8IMFpc-ubw9b_MZ3mqNZf-ygY",
   "index": "v3.5.0--BLJ0S4kueVlPNIi7FZjnFYjgSJGoemn1Vzt3hC2Nnt0"
 }

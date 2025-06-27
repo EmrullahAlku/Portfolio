@@ -47,6 +47,16 @@
                   <Icon name="simple-icons:github" size="20" />
                   GitHub
                 </a>
+                <a
+                  v-if="project.demo"
+                  :href="project.demo"
+                  target="_blank"
+                  rel="noopener"
+                  class="project-link"
+                >
+                  <Icon name="heroicons:play" size="20" />
+                  Demo
+                </a>
               </div>
             </div>
           </div>
