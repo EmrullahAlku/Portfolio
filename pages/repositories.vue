@@ -1,17 +1,23 @@
 <template>
   <div class="repositories-page">
-    <div class="container">
+    <div v-if="pending" class="loading-state">
+      <p>Yükleniyor...</p>
+    </div>
+    <div v-else-if="error" class="error-state">
+      <p>İçerik yüklenirken bir hata oluştu.</p>
+    </div>
+    <div v-else-if="doc" class="container">
       <header class="page-header">
-        <h1 class="page-title">Projelerim</h1>
+        <h1 class="page-title">{{ doc.title }}</h1>
         <p class="page-subtitle">
-          Geliştirdiğim web uygulamaları ve açık kaynak projeler
+          {{ doc.subtitle }}
         </p>
       </header>
 
       <!-- Filter Tabs -->
       <div class="filter-tabs">
-        <button 
-          v-for="category in categories" 
+        <button
+          v-for="category in doc.categories"
           :key="category"
           @click="activeFilter = category"
           :class="{ active: activeFilter === category }"
@@ -23,28 +29,19 @@
 
       <!-- Projects Grid -->
       <div class="projects-grid">
-        <div 
-          v-for="project in filteredProjects" 
-          :key="project.id"
+        <div
+          v-for="(project, index) in filteredProjects(doc.projects)"
+          :key="index"
           class="project-card"
         >
           <div class="project-image">
             <img :src="project.image" :alt="project.title" />
             <div class="project-overlay">
               <div class="project-links">
-                <a 
-                  v-if="project.demo" 
-                  :href="project.demo" 
-                  target="_blank" 
-                  class="project-link"
-                >
-                  <Icon name="heroicons:eye" size="20" />
-                  Demo
-                </a>
-                <a 
-                  v-if="project.github" 
-                  :href="project.github" 
-                  target="_blank" 
+                <a
+                  v-if="project.github"
+                  :href="project.github"
+                  target="_blank"
                   class="project-link"
                 >
                   <Icon name="simple-icons:github" size="20" />
@@ -53,25 +50,25 @@
               </div>
             </div>
           </div>
-          
+
           <div class="project-content">
             <div class="project-header">
               <h3 class="project-title">{{ project.title }}</h3>
               <span class="project-category">{{ project.category }}</span>
             </div>
-            
+
             <p class="project-description">{{ project.description }}</p>
-            
+
             <div class="project-tech">
-              <span 
-                v-for="tech in project.technologies" 
-                :key="tech" 
+              <span
+                v-for="tech in project.technologies"
+                :key="tech"
                 class="tech-tag"
               >
                 {{ tech }}
               </span>
             </div>
-            
+
             <div class="project-stats">
               <div class="stat">
                 <Icon name="heroicons:star" size="16" />
@@ -89,157 +86,73 @@
       <!-- GitHub Stats -->
       <section class="github-stats section">
         <h2 class="section-title text-center mb-8">GitHub İstatistikleri</h2>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon">
-              <Icon name="simple-icons:github" size="32" />
+        <template v-if="doc.githubStats">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <Icon name="simple-icons:github" size="32" />
+              </div>
+              <div class="stat-info">
+                <div class="stat-number">{{ doc.githubStats.repos }}</div>
+                <div class="stat-label">Toplam Repo</div>
+              </div>
             </div>
-            <div class="stat-info">
-              <div class="stat-number">{{ githubStats.repos }}</div>
-              <div class="stat-label">Toplam Repo</div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <Icon name="heroicons:star" size="32" />
+              </div>
+              <div class="stat-info">
+                <div class="stat-number">{{ doc.githubStats.stars }}</div>
+                <div class="stat-label">Toplam Star</div>
+              </div>
             </div>
-          </div>
-          
-          <div class="stat-card">
-            <div class="stat-icon">
-              <Icon name="heroicons:star" size="32" />
-            </div>
-            <div class="stat-info">
-              <div class="stat-number">{{ githubStats.stars }}</div>
-              <div class="stat-label">Toplam Star</div>
-            </div>
-          </div>
-          
-          <div class="stat-card">
-            <div class="stat-icon">
-              <Icon name="heroicons:code-bracket" size="32" />
-            </div>
-            <div class="stat-info">
-              <div class="stat-number">{{ githubStats.commits }}</div>
-              <div class="stat-label">Bu Yıl Commit</div>
-            </div>
-          </div>
-          
-          <div class="stat-card">
-            <div class="stat-icon">
-              <Icon name="heroicons:users" size="32" />
-            </div>
-            <div class="stat-info">
-              <div class="stat-number">{{ githubStats.followers }}</div>
-              <div class="stat-label">Takipçi</div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <Icon name="heroicons:arrow-trending-up" size="32" />
+              </div>
+              <div class="stat-info">
+                <div class="stat-number">
+                  {{ doc.githubStats.contributions }}
+                </div>
+                <div class="stat-label">Katkı</div>
+              </div>
             </div>
           </div>
-        </div>
+        </template>
       </section>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed } from "vue";
 
-useHead({
-  title: 'Projelerim - Emrullah Alku',
-  meta: [
-    {
-      name: 'description',
-      content: 'Emrullah Alku\'nun geliştirdiği web uygulamaları, açık kaynak projeleri ve GitHub istatistikleri.'
+const route = useRoute();
+const { data: doc } = await useAsyncData(route.path, () => {
+  return queryCollection("repositories").path(route.path).first();
+});
+
+useSeoMeta({
+  title: () =>
+    doc.value ? `${doc.value.title} - Emrullah Alku` : "Projelerim",
+  description: () =>
+    doc.value
+      ? doc.value.subtitle
+      : "Emrullah Alku'nun projeleri ve çalışmaları.",
+});
+
+const activeFilter = ref("Tümü");
+
+const filteredProjects = (projects) => {
+  return computed(() => {
+    if (activeFilter.value === "Tümü") {
+      return projects;
     }
-  ]
-})
-
-const activeFilter = ref('Tümü')
-
-const categories = ['Tümü', 'Web App', 'Frontend', 'Full-Stack', 'Mobile']
-
-const projects = [
-  {
-    id: 1,
-    title: 'E-Ticaret Platform',
-    description: 'Modern e-ticaret sitesi. Ürün katalogu, sepet yönetimi ve ödeme sistemi ile tam özellikli online mağaza.',
-    category: 'Full-Stack',
-    technologies: ['Nuxt.js', 'Vue.js', 'Node.js', 'MongoDB', 'Stripe'],
-    image: 'https://via.placeholder.com/400x250/6366f1/ffffff?text=E-Commerce',
-    demo: 'https://demo.example.com',
-    github: 'https://github.com/emrullah-alku/ecommerce',
-    stars: 24,
-    language: 'Vue.js'
-  },
-  {
-    id: 2,
-    title: 'Task Management App',
-    description: 'Proje yönetimi uygulaması. Görev takibi, ekip işbirliği ve deadline yönetimi özellikleri.',
-    category: 'Web App',
-    technologies: ['React', 'TypeScript', 'Firebase', 'Material-UI'],
-    image: 'https://via.placeholder.com/400x250/8b5cf6/ffffff?text=Task+Manager',
-    demo: 'https://tasks.example.com',
-    github: 'https://github.com/emrullah-alku/task-manager',
-    stars: 18,
-    language: 'TypeScript'
-  },
-  {
-    id: 3,
-    title: 'Weather Dashboard',
-    description: 'Hava durumu takip uygulaması. Gerçek zamanlı veriler, 7 günlük tahmin ve interaktif haritalar.',
-    category: 'Frontend',
-    technologies: ['Vue.js', 'OpenWeather API', 'Chart.js', 'CSS3'],
-    image: 'https://via.placeholder.com/400x250/10b981/ffffff?text=Weather+App',
-    demo: 'https://weather.example.com',
-    github: 'https://github.com/emrullah-alku/weather-dashboard',
-    stars: 32,
-    language: 'JavaScript'
-  },
-  {
-    id: 4,
-    title: 'Blog Platform',
-    description: 'Kişisel blog platformu. Markdown editör, kategori sistemi ve admin paneli ile komple blog çözümü.',
-    category: 'Full-Stack',
-    technologies: ['Nuxt.js', 'Python', 'Django', 'PostgreSQL'],
-    image: 'https://via.placeholder.com/400x250/f59e0b/ffffff?text=Blog+Platform',
-    demo: 'https://blog.example.com',
-    github: 'https://github.com/emrullah-alku/blog-platform',
-    stars: 15,
-    language: 'Python'
-  },
-  {
-    id: 5,
-    title: 'Portfolio Website',
-    description: 'Kişisel portfolio sitesi. Animasyonlu navigasyon, dark mode ve responsive tasarım.',
-    category: 'Frontend',
-    technologies: ['Nuxt.js', 'Vue.js', 'CSS3', 'Framer Motion'],
-    image: 'https://via.placeholder.com/400x250/ef4444/ffffff?text=Portfolio',
-    demo: 'https://portfolio.example.com',
-    github: 'https://github.com/emrullah-alku/portfolio',
-    stars: 41,
-    language: 'Vue.js'
-  },
-  {
-    id: 6,
-    title: 'Chat Application',
-    description: 'Gerçek zamanlı sohbet uygulaması. Socket.io ile anlık mesajlaşma ve dosya paylaşımı.',
-    category: 'Web App',
-    technologies: ['Socket.io', 'Express.js', 'React', 'Redis'],
-    image: 'https://via.placeholder.com/400x250/06b6d4/ffffff?text=Chat+App',
-    demo: 'https://chat.example.com',
-    github: 'https://github.com/emrullah-alku/chat-app',
-    stars: 28,
-    language: 'JavaScript'
-  }
-]
-
-const githubStats = {
-  repos: 45,
-  stars: 158,
-  commits: 324,
-  followers: 89
-}
-
-const filteredProjects = computed(() => {
-  if (activeFilter.value === 'Tümü') {
-    return projects
-  }
-  return projects.filter(project => project.category === activeFilter.value)
-})
+    return projects.filter(
+      (project) => project.category === activeFilter.value
+    );
+  }).value;
+};
 </script>
 
 <style scoped>
@@ -497,15 +410,15 @@ const filteredProjects = computed(() => {
   .page-title {
     font-size: 2.5rem;
   }
-  
+
   .projects-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .filter-tabs {
     grid-template-columns: repeat(3, 1fr);
   }
-  
+
   .project-header {
     flex-direction: column;
     gap: 0.5rem;

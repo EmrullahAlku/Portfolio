@@ -1,16 +1,22 @@
 <template>
   <div class="education-page">
-    <div class="container">
+    <div v-if="pending" class="loading-spinner">Yükleniyor...</div>
+    <div v-else-if="error">İçerik yüklenirken bir hata oluştu.</div>
+    <div v-else-if="doc" class="container">
       <header class="page-header">
-        <h1 class="page-title">Eğitim</h1>
+        <h1 class="page-title">{{ doc.title }} {{ doc.subtitle }}</h1>
         <p class="page-subtitle">
-          Akademik geçmişim ve sürekli öğrenme yolculuğum
+          {{ doc.subtitle }}
         </p>
       </header>
 
       <!-- Education Timeline -->
       <section class="education-timeline">
-        <div class="timeline-item" v-for="education in educationList" :key="education.id">
+        <div
+          class="timeline-item"
+          v-for="(education, index) in doc.education"
+          :key="index"
+        >
           <div class="timeline-marker"></div>
           <div class="timeline-content">
             <div class="education-card">
@@ -23,7 +29,11 @@
               <div class="skills-learned" v-if="education.skills">
                 <h5>Öğrenilen Beceriler:</h5>
                 <div class="skill-tags">
-                  <span v-for="skill in education.skills" :key="skill" class="skill-tag">
+                  <span
+                    v-for="skill in education.skills"
+                    :key="skill"
+                    class="skill-tag"
+                  >
                     {{ skill }}
                   </span>
                 </div>
@@ -37,9 +47,9 @@
       <section class="certifications-section section">
         <h2 class="section-title text-center mb-8">Sertifikalar</h2>
         <div class="certifications-grid">
-          <div 
-            v-for="cert in certifications" 
-            :key="cert.id"
+          <div
+            v-for="(cert, index) in doc.certifications"
+            :key="index"
             class="certification-card"
           >
             <div class="cert-icon">
@@ -48,33 +58,43 @@
             <h3 class="cert-title">{{ cert.title }}</h3>
             <p class="cert-issuer">{{ cert.issuer }}</p>
             <p class="cert-date">{{ cert.date }}</p>
-            <a v-if="cert.link" :href="cert.link" target="_blank" class="cert-link">
+            <button @click="openCertificate(cert.link)" class="cert-link">
               Sertifikayı Görüntüle
-              <Icon name="heroicons:arrow-top-right-on-square" size="16" />
-            </a>
+              <Icon name="heroicons:eye" size="16" />
+            </button>
           </div>
         </div>
       </section>
 
-      <!-- Skills Progress -->
-      <section class="skills-progress section">
+      <!-- Certificate Modal -->
+      <div
+        v-if="selectedCertificate"
+        class="certificate-modal-overlay"
+        @click="closeCertificate"
+      >
+        <div class="certificate-modal-content" @click.stop>
+          <button class="close-button" @click="closeCertificate">
+            <Icon name="heroicons:x-mark" size="32" />
+          </button>
+          <iframe
+            :src="selectedCertificate"
+            frameborder="0"
+            width="100%"
+            height="100%"
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Skills Section -->
+      <section class="skills-section section">
         <h2 class="section-title text-center mb-8">Teknik Beceriler</h2>
-        <div class="skills-list">
-          <div 
-            v-for="skill in technicalSkills" 
-            :key="skill.name"
-            class="skill-progress-item"
+        <div class="skills-grid">
+          <div
+            v-for="(skill, index) in doc.skills"
+            :key="index"
+            class="skill-badge"
           >
-            <div class="skill-info">
-              <span class="skill-name">{{ skill.name }}</span>
-              <span class="skill-level">{{ skill.level }}%</span>
-            </div>
-            <div class="progress-bar">
-              <div 
-                class="progress-fill" 
-                :style="{ width: skill.level + '%' }"
-              ></div>
-            </div>
+            {{ skill }}
           </div>
         </div>
       </section>
@@ -83,95 +103,42 @@
 </template>
 
 <script setup>
-useHead({
-  title: 'Eğitim - Emrullah Alku',
-  meta: [
-    {
-      name: 'description',
-      content: 'Emrullah Alku\'nun eğitim geçmişi, sertifikaları ve teknik becerileri. Sürekli öğrenme ve gelişim yolculuğu.'
-    }
-  ]
-})
+import { ref } from "vue";
+const route = useRoute();
+const { data: doc } = await useAsyncData(route.path, () => {
+  return queryCollection("education").path(route.path).first();
+});
 
-const educationList = [
-  {
-    id: 1,
-    institution: 'Kocaeli Üniversitesi',
-    degree: 'Bilgisayar Mühendisliği',
-    period: '2019 - 2023',
-    description: 'Yazılım geliştirme, veri yapıları, algoritmalar ve modern web teknolojileri konularında kapsamlı eğitim aldım.',
-    skills: ['JavaScript', 'Python', 'Java', 'SQL', 'Web Development', 'Software Engineering']
-  },
-  {
-    id: 2,
-    institution: 'FreeCodeCamp',
-    degree: 'Full Stack Web Development',
-    period: '2022 - 2023',
-    description: 'Modern web teknolojileri ve full-stack geliştirme konularında pratik odaklı eğitim.',
-    skills: ['React', 'Node.js', 'MongoDB', 'Express.js', 'RESTful APIs']
-  },
-  {
-    id: 3,
-    institution: 'Udemy',
-    degree: 'Advanced Vue.js & Nuxt.js',
-    period: '2023 - 2024',
-    description: 'Vue.js ve Nuxt.js framework\'leri ile modern single-page application geliştirme.',
-    skills: ['Vue.js', 'Nuxt.js', 'Composition API', 'State Management']
-  }
-]
+const selectedCertificate = ref(null);
 
-const certifications = [
-  {
-    id: 1,
-    title: 'JavaScript Algorithms and Data Structures',
-    issuer: 'FreeCodeCamp',
-    date: 'Ocak 2023',
-    icon: 'simple-icons:freecodecamp',
-    link: 'https://freecodecamp.org'
-  },
-  {
-    id: 2,
-    title: 'Responsive Web Design',
-    issuer: 'FreeCodeCamp',
-    date: 'Aralık 2022',
-    icon: 'simple-icons:freecodecamp',
-    link: 'https://freecodecamp.org'
-  },
-  {
-    id: 3,
-    title: 'Vue.js Complete Guide',
-    issuer: 'Udemy',
-    date: 'Haziran 2023',
-    icon: 'simple-icons:udemy',
-    link: 'https://udemy.com'
-  },
-  {
-    id: 4,
-    title: 'Python for Data Science',
-    issuer: 'Coursera',
-    date: 'Mart 2023',
-    icon: 'simple-icons:coursera',
-    link: 'https://coursera.org'
-  }
-]
+const openCertificate = (path) => {
+  selectedCertificate.value = path;
+};
 
-const technicalSkills = [
-  { name: 'JavaScript', level: 90 },
-  { name: 'Vue.js / Nuxt.js', level: 85 },
-  { name: 'HTML/CSS', level: 95 },
-  { name: 'Python', level: 80 },
-  { name: 'Node.js', level: 75 },
-  { name: 'SQL', level: 70 },
-  { name: 'Git', level: 85 },
-  { name: 'Figma', level: 80 }
-]
+const closeCertificate = () => {
+  selectedCertificate.value = null;
+};
+
+useSeoMeta({
+  title: () => (doc.value ? `${doc.value.title} - Emrullah Alku` : "Eğitim"),
+  description: () =>
+    doc.value
+      ? doc.value.subtitle
+      : "Emrullah Alku'nun eğitim geçmişi, sertifikaları ve teknik becerileri.",
+});
 </script>
 
 <style scoped>
 .education-page {
-  min-height: 100vh;
-  padding-top: 120px;
-  padding-bottom: 4rem;
+  padding: 4rem 0;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .page-header {
@@ -181,112 +148,92 @@ const technicalSkills = [
 
 .page-title {
   font-size: 3rem;
-  font-weight: 700;
-  color: var(--foreground);
-  margin-bottom: 1rem;
+  font-weight: 800;
 }
 
 .page-subtitle {
   font-size: 1.2rem;
   color: var(--muted-foreground);
-  max-width: 600px;
-  margin: 0 auto;
+}
+
+.section {
+  margin-top: 4rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
 }
 
 .education-timeline {
   position: relative;
-  margin: 4rem 0;
+  padding: 2rem 0;
 }
 
 .education-timeline::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 20px;
   top: 0;
   bottom: 0;
   width: 2px;
-  background: var(--border);
+  background-color: var(--border);
 }
 
 .timeline-item {
   position: relative;
-  margin-bottom: 3rem;
   padding-left: 60px;
+  margin-bottom: 2rem;
 }
 
 .timeline-marker {
   position: absolute;
-  left: 11px;
-  top: 20px;
-  width: 18px;
-  height: 18px;
-  background: var(--primary);
+  left: 12px;
+  top: 5px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  border: 3px solid var(--background);
-  z-index: 1;
+  background-color: var(--primary);
+  border: 2px solid var(--background);
 }
 
 .education-card {
-  background: var(--card);
+  background-color: var(--card);
+  padding: 1.5rem;
+  border-radius: 8px;
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-.dark .education-card {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.education-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-}
-
-.dark .education-card:hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 .education-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .institution {
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--foreground);
-  margin: 0;
 }
 
 .period {
-  background: var(--primary);
-  color: var(--primary-foreground);
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--muted-foreground);
 }
 
 .degree {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: var(--primary);
   margin-bottom: 1rem;
 }
 
 .description {
-  color: var(--muted-foreground);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .skills-learned h5 {
-  color: var(--foreground);
-  margin-bottom: 0.75rem;
-  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
 .skill-tags {
@@ -296,52 +243,34 @@ const technicalSkills = [
 }
 
 .skill-tag {
-  background: var(--secondary);
-  color: var(--secondary-foreground);
+  background-color: var(--secondary);
   padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.875rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
 }
 
 .certifications-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
 
 .certification-card {
-  background: var(--card);
+  background-color: var(--card);
+  padding: 1.5rem;
+  border-radius: 8px;
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 2rem;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-.dark .certification-card {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.certification-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-}
-
-.dark .certification-card:hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 .cert-icon {
-  color: var(--primary);
   margin-bottom: 1rem;
+  color: var(--primary);
 }
 
 .cert-title {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  color: var(--foreground);
-  margin-bottom: 0.5rem;
 }
 
 .cert-issuer {
@@ -350,76 +279,80 @@ const technicalSkills = [
 }
 
 .cert-date {
+  font-size: 0.9rem;
   color: var(--muted-foreground);
-  font-size: 0.875rem;
   margin-bottom: 1rem;
 }
 
 .cert-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
   color: var(--primary);
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
 }
 
-.cert-link:hover {
-  color: var(--primary-indigo);
-}
-
-.skills-list {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.skill-progress-item {
-  margin-bottom: 2rem;
-}
-
-.skill-info {
+.certificate-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
 }
 
-.skill-name {
-  font-weight: 500;
-  color: var(--foreground);
-}
-
-.skill-level {
-  color: var(--muted-foreground);
-  font-size: 0.875rem;
-}
-
-.progress-bar {
-  height: 8px;
-  background: var(--secondary);
-  border-radius: 4px;
+.certificate-modal-content {
+  position: relative;
+  background-color: var(--card);
+  width: 90%;
+  height: 90%;
+  max-width: 1200px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(45deg, var(--primary-indigo), var(--primary-purple));
-  border-radius: 4px;
-  transition: width 0.8s ease;
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--foreground);
+  cursor: pointer;
+  z-index: 1001;
 }
 
-@media (max-width: 768px) {
-  .education-header {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .page-title {
-    font-size: 2.5rem;
-  }
-  
-  .certifications-grid {
-    grid-template-columns: 1fr;
-  }
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.skill-badge {
+  background-color: var(--card);
+  color: var(--foreground);
+  padding: 0.75rem 1.5rem;
+  border-radius: 20px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.skill-badge:hover {
+  transform: translateY(-3px);
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 </style>

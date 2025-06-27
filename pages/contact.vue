@@ -1,10 +1,16 @@
 <template>
   <div class="contact-page">
-    <div class="container">
+    <div v-if="pending" class="loading-state">
+      <p>Yükleniyor...</p>
+    </div>
+    <div v-else-if="error || !doc" class="error-state">
+      <p>İçerik yüklenirken bir hata oluştu.</p>
+    </div>
+    <div v-else class="container">
       <header class="page-header">
-        <h1 class="page-title">İletişim</h1>
+        <h1 class="page-title">{{ doc.title }}</h1>
         <p class="page-subtitle">
-          Benimle iletişime geçin, projelerinizi konuşalım
+          {{ doc.subtitle }}
         </p>
       </header>
 
@@ -16,60 +22,65 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="name">Ad Soyad *</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  v-model="form.name" 
-                  required 
+                <input
+                  type="text"
+                  id="name"
+                  v-model="form.name"
+                  required
                   class="form-input"
                   placeholder="Adınız ve soyadınız"
                 />
               </div>
-              
+
               <div class="form-group">
                 <label for="email">E-posta *</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  v-model="form.email" 
-                  required 
+                <input
+                  type="email"
+                  id="email"
+                  v-model="form.email"
+                  required
                   class="form-input"
                   placeholder="ornek@email.com"
                 />
               </div>
             </div>
-            
+
             <div class="form-group">
               <label for="subject">Konu</label>
-              <input 
-                type="text" 
-                id="subject" 
-                v-model="form.subject" 
+              <input
+                type="text"
+                id="subject"
+                v-model="form.subject"
                 class="form-input"
                 placeholder="Mesajınızın konusu"
               />
             </div>
-            
+
             <div class="form-group">
               <label for="message">Mesaj *</label>
-              <textarea 
-                id="message" 
-                v-model="form.message" 
-                required 
+              <textarea
+                id="message"
+                v-model="form.message"
+                required
                 class="form-textarea"
                 rows="6"
                 placeholder="Mesajınızı buraya yazın..."
               ></textarea>
             </div>
-            
-            <button 
-              type="submit" 
-              class="submit-btn"
-              :disabled="isSubmitting"
-            >
-              <Icon v-if="!isSubmitting" name="heroicons:paper-airplane" size="20" />
-              <Icon v-else name="heroicons:arrow-path" size="20" class="spinning" />
-              {{ isSubmitting ? 'Gönderiliyor...' : 'Mesaj Gönder' }}
+
+            <button type="submit" class="submit-btn" :disabled="isSubmitting">
+              <Icon
+                v-if="!isSubmitting"
+                name="heroicons:paper-airplane"
+                size="20"
+              />
+              <Icon
+                v-else
+                name="heroicons:arrow-path"
+                size="20"
+                class="spinning"
+              />
+              {{ isSubmitting ? "Gönderiliyor..." : "Mesaj Gönder" }}
             </button>
           </form>
         </div>
@@ -77,7 +88,7 @@
         <!-- Contact Info -->
         <div class="contact-info-section">
           <h2 class="info-title">İletişim Bilgileri</h2>
-          
+
           <div class="contact-methods">
             <div class="contact-method">
               <div class="method-icon">
@@ -85,31 +96,21 @@
               </div>
               <div class="method-content">
                 <h3>E-posta</h3>
-                <a href="mailto:emrullah.alku@example.com" class="contact-link">
-                  emrullah.alku@example.com
+                <a
+                  :href="`mailto:${doc.contactInfo.email}`"
+                  class="contact-link"
+                >
+                  {{ doc.contactInfo.email }}
                 </a>
               </div>
             </div>
-            
-            <div class="contact-method">
-              <div class="method-icon">
-                <Icon name="heroicons:phone" size="24" />
-              </div>
-              <div class="method-content">
-                <h3>Telefon</h3>
-                <a href="tel:+905551234567" class="contact-link">
-                  +90 555 123 45 67
-                </a>
-              </div>
-            </div>
-            
             <div class="contact-method">
               <div class="method-icon">
                 <Icon name="heroicons:map-pin" size="24" />
               </div>
               <div class="method-content">
                 <h3>Konum</h3>
-                <span class="contact-text">Kocaeli, Türkiye</span>
+                <span class="contact-text">{{ doc.contactInfo.location }}</span>
               </div>
             </div>
           </div>
@@ -118,40 +119,15 @@
           <div class="social-section">
             <h3 class="social-title">Sosyal Medya</h3>
             <div class="social-links">
-              <a 
-                href="https://github.com/emrullah-alku" 
-                target="_blank" 
+              <a
+                v-for="social in doc.socials"
+                :key="social.name"
+                :href="social.url"
+                target="_blank"
                 class="social-link"
-                aria-label="GitHub"
+                :aria-label="social.name"
               >
-                <Icon name="simple-icons:github" size="24" />
-              </a>
-              
-              <a 
-                href="https://linkedin.com/in/emrullah-alku" 
-                target="_blank" 
-                class="social-link"
-                aria-label="LinkedIn"
-              >
-                <Icon name="simple-icons:linkedin" size="24" />
-              </a>
-              
-              <a 
-                href="https://twitter.com/emrullah_alku" 
-                target="_blank" 
-                class="social-link"
-                aria-label="Twitter"
-              >
-                <Icon name="simple-icons:twitter" size="24" />
-              </a>
-              
-              <a 
-                href="https://instagram.com/emrullah.alku" 
-                target="_blank" 
-                class="social-link"
-                aria-label="Instagram"
-              >
-                <Icon name="simple-icons:instagram" size="24" />
+                <Icon :name="social.icon" size="24" />
               </a>
             </div>
           </div>
@@ -161,10 +137,10 @@
             <h3 class="availability-title">Çalışma Durumu</h3>
             <div class="availability-status">
               <div class="status-indicator available"></div>
-              <span class="status-text">Yeni projeler için müsaitim</span>
+              <span class="status-text">{{ doc.availability.status }}</span>
             </div>
             <p class="availability-note">
-              Genellikle 24 saat içinde geri dönüş yaparım.
+              {{ doc.availability.note }}
             </p>
           </div>
         </div>
@@ -174,11 +150,7 @@
       <section class="faq-section section">
         <h2 class="section-title text-center mb-8">Sık Sorulan Sorular</h2>
         <div class="faq-grid">
-          <div 
-            v-for="(faq, index) in faqs" 
-            :key="index"
-            class="faq-item"
-          >
+          <div v-for="(faq, index) in doc.faqs" :key="index" class="faq-item">
             <h3 class="faq-question">{{ faq.question }}</h3>
             <p class="faq-answer">{{ faq.answer }}</p>
           </div>
@@ -189,70 +161,63 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
+
+const route = useRoute();
+const { data: doc } = await useAsyncData("contact", () =>
+  queryCollection("contact").path(route.path).first()
+);
 
 useHead({
-  title: 'İletişim - Emrullah Alku',
+  title: () =>
+    doc.value
+      ? `${doc.value.title} - Emrullah Alku`
+      : "İletişim - Emrullah Alku",
   meta: [
     {
-      name: 'description',
-      content: 'Emrullah Alku ile iletişime geçin. Web projeleriniz için işbirliği fırsatları ve danışmanlık hizmetleri.'
-    }
-  ]
-})
+      name: "description",
+      content: () =>
+        doc.value?.subtitle ||
+        "Emrullah Alku ile iletişime geçin. Web projeleriniz için işbirliği fırsatları ve danışmanlık hizmetleri.",
+    },
+  ],
+});
 
 const form = ref({
-  name: '',
-  email: '',
-  subject: '',
-  message: ''
-})
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+});
 
-const isSubmitting = ref(false)
+const isSubmitting = ref(false);
 
 const submitForm = async () => {
-  if (isSubmitting.value) return
-  
-  isSubmitting.value = true
-  
+  if (isSubmitting.value) return;
+
+  isSubmitting.value = true;
+
   try {
     // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     // Reset form
     form.value = {
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    }
-    
-    alert('Mesajınız başarıyla gönderildi! En kısa sürede geri dönüş yapacağım.')
-  } catch (error) {
-    alert('Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.')
-  } finally {
-    isSubmitting.value = false
-  }
-}
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    };
 
-const faqs = [
-  {
-    question: 'Hangi teknolojilerle çalışıyorsunuz?',
-    answer: 'Özellikle Vue.js, Nuxt.js, JavaScript, Python ve Django ile çalışıyorum. Frontend ve backend geliştirme konularında deneyimliyim.'
-  },
-  {
-    question: 'Proje süreçleri nasıl işliyor?',
-    answer: 'Önce ihtiyaçlarınızı analiz ederiz, ardından teknik çözüm önerisini paylaşırım. Geliştirme sürecinde düzenli güncellemeler alırsınız.'
-  },
-  {
-    question: 'Uzaktan çalışma yapıyor musunuz?',
-    answer: 'Evet, tamamen uzaktan çalışıyorum. Dünya çapında müşterilerle başarılı projeler geliştiriyorum.'
-  },
-  {
-    question: 'Proje teslim süreleri nasıl?',
-    answer: 'Proje büyüklüğüne göre değişiklik gösterir. Küçük projeler 1-2 hafta, büyük projeler 1-3 ay sürebilir.'
+    alert(
+      "Mesajınız başarıyla gönderildi! En kısa sürede geri dönüş yapacağım."
+    );
+  } catch (error) {
+    alert("Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.");
+  } finally {
+    isSubmitting.value = false;
   }
-]
+};
 </script>
 
 <style scoped>
@@ -385,8 +350,12 @@ const faqs = [
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .contact-methods {
@@ -547,15 +516,15 @@ const faqs = [
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .form-row {
     grid-template-columns: 1fr;
   }
-  
+
   .page-title {
     font-size: 2.5rem;
   }
-  
+
   .social-links {
     justify-content: center;
   }

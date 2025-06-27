@@ -1,20 +1,18 @@
+import { build } from "nuxt";
+
 export default defineNuxtConfig({
   compatibilityDate: "2025-06-26",
   devtools: { enabled: true },
-  modules: [
-    "@nuxt/ui",
-    "@pinia/nuxt",
-    "@vueuse/nuxt",
-    "@nuxtjs/color-mode",
-    "@nuxt/image",
-  ],
+  modules: ["@nuxt/ui", "@nuxt/content"],
   css: ["~/assets/css/main.css"],
-  colorMode: {
-    classSuffix: "",
-  },
-  ui: {
-    global: true,
-    icons: ["heroicons", "simple-icons"],
+  content: {
+    build: {
+      markdown: {
+        highlight: {
+          theme: "github-dark",
+        },
+      },
+    },
   },
   app: {
     head: {

@@ -1,104 +1,129 @@
 <template>
-  <div class="navigation-container">
-    <!-- Inverted Half Circle Navigation -->
-    <div 
-      class="inverted-navigation"
-      :class="{ 'expanded': isExpanded }"
-      @mouseenter="handleMouseEnter"
-      @mouseleave="handleMouseLeave"
-      @click="toggleMenu"
-    >
-      <div class="profile-container">
-        <img 
-          src="https://via.placeholder.com/80x80/6366f1/ffffff?text=EA" 
-          alt="Emrullah Alku"
-          class="profile-image"
-        />
-        <div class="profile-info">
-          <h3>Emrullah Alku</h3>
-          <p>Full-Stack Developer</p>
-        </div>
-      </div>
-      
-      <!-- Dark Mode Toggle -->
-      <button @click.stop="toggleDarkMode" class="theme-toggle">
-        <Icon :name="isDark ? 'heroicons:sun' : 'heroicons:moon'" />
-      </button>
-    </div>
-
-    <!-- Circular Menu Overlay -->
-    <div 
-      v-if="isMenuOpen" 
-      class="menu-overlay"
-      @click="closeMenu"
-    >
-      <div class="circular-menu">
-        <div class="menu-center">
-          <img 
-            src="https://via.placeholder.com/100x100/6366f1/ffffff?text=EA" 
+  <div>
+    <div class="navigation-container">
+      <!-- Inverted Half Circle Navigation -->
+      <div
+        class="inverted-navigation"
+        :class="{ expanded: isExpanded }"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave"
+        @click="toggleMenu"
+      >
+        <div class="profile-container">
+          <img
+            src="../public/pp.jpg"
             alt="Emrullah Alku"
-            class="center-profile"
+            class="profile-image"
           />
+          <div class="profile-info">
+            <h3>Emrullah Alku</h3>
+            <p>Full-Stack Developer</p>
+          </div>
         </div>
-        
-        <!-- Navigation Items -->
-        <NuxtLink 
-          v-for="(item, index) in menuItems" 
+
+        <!-- Dark Mode Toggle -->
+        <button @click.stop="toggleDarkMode" class="theme-toggle">
+          <Icon :name="isDark ? 'heroicons:sun' : 'heroicons:moon'" />
+        </button>
+      </div>
+
+      <!-- Navigation Items -->
+      <template v-if="isMenuOpen">
+        <NuxtLink
+          v-for="item in menuItemsWithStyles"
           :key="item.name"
           :to="item.path"
           class="circular-menu-item"
-          :class="`menu-item-${index + 1}`"
+          :style="item.style"
           @click="closeMenu"
         >
           <Icon :name="item.icon" size="24" />
         </NuxtLink>
-      </div>
+      </template>
     </div>
+    <!-- Circular Menu Overlay -->
+    <div v-if="isMenuOpen" class="menu-overlay" @click="closeMenu"></div>
+    <button v-if="isMenuOpen" class="close-menu-button" @click="closeMenu">
+      <Icon name="heroicons:x-mark" size="32" />
+    </button>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted } from "vue";
 
-const colorMode = useColorMode()
-const isExpanded = ref(false)
-const isMenuOpen = ref(false)
+const colorMode = useColorMode();
+const isExpanded = ref(false);
+const isMenuOpen = ref(false);
 
-const isDark = computed(() => colorMode.value === 'dark')
+const isDark = computed(() => colorMode.value === "dark");
 
 const menuItems = [
-  { name: 'Home', path: '/', icon: 'heroicons:home' },
-  { name: 'Education', path: '/education', icon: 'heroicons:academic-cap' },
-  { name: 'Repositories', path: '/repositories', icon: 'heroicons:code-bracket' },
-  { name: 'About', path: '/about', icon: 'heroicons:user' },
-  { name: 'Contact', path: '/contact', icon: 'heroicons:envelope' }
-]
+  { name: "Home", path: "/", icon: "heroicons:home" },
+  { name: "Education", path: "/education", icon: "heroicons:academic-cap" },
+  {
+    name: "Repositories",
+    path: "/repositories",
+    icon: "heroicons:code-bracket",
+  },
+  { name: "About", path: "/about", icon: "heroicons:user" },
+  { name: "Contact", path: "/contact", icon: "heroicons:envelope" },
+];
+
+const menuRadius = 200;
+const menuItemsWithStyles = computed(() => {
+  const totalItems = menuItems.length;
+  const expandedWidth = 300;
+  const centerX = expandedWidth / 2;
+  const centerY = 0;
+
+  return menuItems.map((item, index) => {
+    const arcAngle = (5 * Math.PI) / 6; // 180 degrees
+    const startAngle = (11 * Math.PI) / 12;
+    const angle = startAngle - (index / (totalItems - 1)) * arcAngle;
+
+    const x = centerX + menuRadius * Math.cos(angle);
+    const y = centerY + menuRadius * Math.sin(angle);
+    const delay = index * 0.05;
+
+    return {
+      ...item,
+      style: {
+        top: `${y - 30}px`,
+        left: `${x - 30}px`,
+        "animation-delay": `${delay}s`,
+      },
+    };
+  });
+});
 
 const handleMouseEnter = () => {
-  isExpanded.value = true
-}
+  isExpanded.value = true;
+};
 
 const handleMouseLeave = () => {
   if (!isMenuOpen.value) {
-    isExpanded.value = false
+    isExpanded.value = false;
   }
-}
+};
 
 const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value
-  if (!isMenuOpen.value) {
-    isExpanded.value = false
+  isMenuOpen.value = !isMenuOpen.value;
+  if (isMenuOpen.value) {
+    isExpanded.value = true;
+  } else {
+    isExpanded.value = false;
   }
-}
+};
 
 const closeMenu = () => {
-  isMenuOpen.value = false
-  isExpanded.value = false
-}
+  isMenuOpen.value = false;
+  isExpanded.value = false;
+};
 
 const toggleDarkMode = () => {
-  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-}
+  colorMode.preference = colorMode.value === "dark" ? "light" : "dark";
+};
 </script>
 
 <style scoped>
@@ -187,6 +212,7 @@ const toggleDarkMode = () => {
   cursor: pointer;
   transition: all 0.3s ease;
   opacity: 0;
+  color: var(--foreground);
 }
 
 .expanded .theme-toggle {
@@ -206,36 +232,12 @@ const toggleDarkMode = () => {
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   animation: fadeIn 0.3s ease-out;
+  z-index: 999;
 }
 
 .dark .menu-overlay {
   background: rgba(0, 0, 0, 0.7);
-}
-
-.circular-menu {
-  position: relative;
-  width: 300px;
-  height: 300px;
-}
-
-.menu-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-}
-
-.center-profile {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 3px solid var(--primary);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .circular-menu-item {
@@ -254,6 +256,7 @@ const toggleDarkMode = () => {
   color: var(--foreground);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   animation: menuItemSlideIn 0.5s ease-out;
+  z-index: 1001;
 }
 
 .dark .circular-menu-item {
@@ -270,16 +273,26 @@ const toggleDarkMode = () => {
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
 }
 
-/* Circular positioning */
-.menu-item-1 { top: 20px; left: 50%; transform: translateX(-50%); }
-.menu-item-2 { top: 60px; right: 40px; }
-.menu-item-3 { top: 50%; right: 20px; transform: translateY(-50%); }
-.menu-item-4 { bottom: 60px; right: 40px; }
-.menu-item-5 { bottom: 20px; left: 50%; transform: translateX(-50%); }
+.close-menu-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 1002;
+  padding: 0;
+}
 
+/* Circular positioning */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes menuItemSlideIn {

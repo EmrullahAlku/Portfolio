@@ -1,44 +1,43 @@
 import process from 'node:process';globalThis._importMeta_={url:import.meta.url,env:process.env};import { tmpdir } from 'node:os';
-import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, getRequestURL, getResponseHeader, getResponseStatus, createError, getQuery as getQuery$1, readBody, lazyEventHandler, useBase, createApp, createRouter as createRouter$1, toNodeListener, getRouterParam, getResponseStatusText } from 'file:///home/runner/workspace/node_modules/h3/dist/index.mjs';
 import { Server } from 'node:http';
 import { resolve, dirname, join } from 'node:path';
 import nodeCrypto from 'node:crypto';
 import { parentPort, threadId } from 'node:worker_threads';
-import { escapeHtml } from 'file:///home/runner/workspace/node_modules/@vue/shared/dist/shared.cjs.js';
-import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file:///home/runner/workspace/node_modules/vue-bundle-renderer/dist/runtime.mjs';
-import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, joinRelativeURL } from 'file:///home/runner/workspace/node_modules/ufo/dist/index.mjs';
-import { renderToString } from 'file:///home/runner/workspace/node_modules/vue/server-renderer/index.mjs';
-import destr, { destr as destr$1 } from 'file:///home/runner/workspace/node_modules/destr/dist/index.mjs';
-import { createHooks } from 'file:///home/runner/workspace/node_modules/hookable/dist/index.mjs';
-import { createFetch, Headers as Headers$1 } from 'file:///home/runner/workspace/node_modules/ofetch/dist/node.mjs';
-import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file:///home/runner/workspace/node_modules/node-mock-http/dist/index.mjs';
-import { createStorage, prefixStorage } from 'file:///home/runner/workspace/node_modules/unstorage/dist/index.mjs';
-import unstorage_47drivers_47fs from 'file:///home/runner/workspace/node_modules/unstorage/drivers/fs.mjs';
-import { digest, hash as hash$1 } from 'file:///home/runner/workspace/node_modules/ohash/dist/index.mjs';
-import { klona } from 'file:///home/runner/workspace/node_modules/klona/dist/index.mjs';
-import defu, { defuFn } from 'file:///home/runner/workspace/node_modules/defu/dist/defu.mjs';
-import { snakeCase } from 'file:///home/runner/workspace/node_modules/scule/dist/index.mjs';
-import { getContext } from 'file:///home/runner/workspace/node_modules/unctx/dist/index.mjs';
-import { toRouteMatcher, createRouter } from 'file:///home/runner/workspace/node_modules/radix3/dist/index.mjs';
+import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, getRequestURL, getResponseHeader, getResponseStatus, createError, getQuery as getQuery$1, readBody, getRouterParam, setHeader, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatusText } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/h3/dist/index.mjs';
+import { escapeHtml } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/@vue/shared/dist/shared.cjs.js';
+import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/vue-bundle-renderer/dist/runtime.mjs';
+import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, joinRelativeURL } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/ufo/dist/index.mjs';
+import { renderToString } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/vue/server-renderer/index.mjs';
+import { klona } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/klona/dist/index.mjs';
+import defu, { defuFn } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/defu/dist/defu.mjs';
+import destr, { destr as destr$1 } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/destr/dist/index.mjs';
+import { snakeCase } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/scule/dist/index.mjs';
+import { createHead as createHead$1, propsToString, renderSSRHead } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/unhead/dist/server.mjs';
+import { stringify, uneval } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/devalue/index.js';
+import { isVNode, toValue, isRef } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/vue/index.mjs';
+import { DeprecationsPlugin, PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/unhead/dist/plugins.mjs';
+import { createHooks } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/hookable/dist/index.mjs';
+import { createFetch, Headers as Headers$1 } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/ofetch/dist/node.mjs';
+import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/node-mock-http/dist/index.mjs';
+import { createStorage, prefixStorage } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/unstorage/dist/index.mjs';
+import unstorage_47drivers_47fs from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/unstorage/drivers/fs.mjs';
+import { digest, hash as hash$1 } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/ohash/dist/index.mjs';
+import { toRouteMatcher, createRouter } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/radix3/dist/index.mjs';
 import { readFile } from 'node:fs/promises';
-import consola, { consola as consola$1 } from 'file:///home/runner/workspace/node_modules/consola/dist/index.mjs';
-import { ErrorParser } from 'file:///home/runner/workspace/node_modules/youch-core/build/index.js';
-import { Youch } from 'file:///home/runner/workspace/node_modules/youch/build/index.js';
-import { SourceMapConsumer } from 'file:///home/runner/workspace/node_modules/nitropack/node_modules/source-map/source-map.js';
+import consola, { consola as consola$1 } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/consola/dist/index.mjs';
+import { ErrorParser } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/youch-core/build/index.js';
+import { Youch } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/youch/build/index.js';
+import { SourceMapConsumer } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/source-map/source-map.js';
 import { AsyncLocalStorage } from 'node:async_hooks';
-import { stringify, uneval } from 'file:///home/runner/workspace/node_modules/devalue/index.js';
-import { captureRawStackTrace, parseRawStackTrace } from 'file:///home/runner/workspace/node_modules/errx/dist/index.js';
-import { isVNode, toValue, isRef } from 'file:///home/runner/workspace/node_modules/vue/index.mjs';
-import { basename, isAbsolute } from 'file:///home/runner/workspace/node_modules/pathe/dist/index.mjs';
-import { getIcons } from 'file:///home/runner/workspace/node_modules/@iconify/utils/lib/index.mjs';
-import { collections } from 'file:///home/runner/workspace/.nuxt/nuxt-icon-server-bundle.mjs';
-import { createHead as createHead$1, propsToString, renderSSRHead } from 'file:///home/runner/workspace/node_modules/unhead/dist/server.mjs';
-import { DeprecationsPlugin, PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin } from 'file:///home/runner/workspace/node_modules/unhead/dist/plugins.mjs';
-import { walkResolver } from 'file:///home/runner/workspace/node_modules/unhead/dist/utils.mjs';
-import { fileURLToPath } from 'node:url';
-import { ipxFSStorage, ipxHttpStorage, createIPX, createIPXH3Handler } from 'file:///home/runner/workspace/node_modules/ipx/dist/index.mjs';
+import { getContext } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/unctx/dist/index.mjs';
+import { captureRawStackTrace, parseRawStackTrace } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/errx/dist/index.js';
+import { basename, isAbsolute } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/pathe/dist/index.mjs';
+import { getIcons } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/@iconify/utils/lib/index.mjs';
+import { collections } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/.nuxt/nuxt-icon-server-bundle.mjs';
+import { walkResolver } from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/unhead/dist/utils.mjs';
+import localAdapter from 'file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/node_modules/db0/dist/connectors/better-sqlite3.mjs';
 
-const serverAssets = [{"baseName":"server","dir":"/home/runner/workspace/server/assets"}];
+const serverAssets = [{"baseName":"server","dir":"C:/Users/matem/Desktop/Yazılım/Web/EmrullahPortfolio/server/assets"}];
 
 const assets = createStorage();
 
@@ -50,11 +49,11 @@ const storage = createStorage({});
 
 storage.mount('/assets', assets);
 
-storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/home/runner/workspace","watchOptions":{"ignored":[null]}}));
-storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/home/runner/workspace/server","watchOptions":{"ignored":[null]}}));
-storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/home/runner/workspace/.nuxt"}));
-storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/home/runner/workspace/.nuxt/cache"}));
-storage.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"/home/runner/workspace/.data/kv"}));
+storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"C:/Users/matem/Desktop/Yazılım/Web/EmrullahPortfolio","watchOptions":{"ignored":[null]}}));
+storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"C:/Users/matem/Desktop/Yazılım/Web/EmrullahPortfolio/server","watchOptions":{"ignored":[null]}}));
+storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"C:/Users/matem/Desktop/Yazılım/Web/EmrullahPortfolio/.nuxt"}));
+storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"C:/Users/matem/Desktop/Yazılım/Web/EmrullahPortfolio/.nuxt/cache"}));
+storage.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"C:/Users/matem/Desktop/Yazılım/Web/EmrullahPortfolio/.data/kv"}));
 
 function useStorage(base = "") {
   return base ? prefixStorage(storage, base) : storage;
@@ -871,6 +870,21 @@ const _inlineRuntimeConfig = {
           "maxAge": 31536000
         }
       },
+      "/__nuxt_content/**": {
+        "robots": false
+      },
+      "/__nuxt_content/about/sql_dump.txt": {
+        "prerender": true
+      },
+      "/__nuxt_content/education/sql_dump.txt": {
+        "prerender": true
+      },
+      "/__nuxt_content/repositories/sql_dump.txt": {
+        "prerender": true
+      },
+      "/__nuxt_content/contact/sql_dump.txt": {
+        "prerender": true
+      },
       "/_nuxt/builds/meta/**": {
         "headers": {
           "cache-control": "public, max-age=31536000, immutable"
@@ -883,21 +897,42 @@ const _inlineRuntimeConfig = {
       }
     }
   },
-  "public": {},
+  "public": {
+    "content": {
+      "wsUrl": "ws://localhost:4000/"
+    },
+    "mdc": {
+      "components": {
+        "prose": true,
+        "map": {}
+      },
+      "headings": {
+        "anchorLinks": {
+          "h1": false,
+          "h2": true,
+          "h3": true,
+          "h4": true,
+          "h5": false,
+          "h6": false
+        }
+      }
+    }
+  },
   "icon": {
     "serverKnownCssClasses": []
   },
-  "ipx": {
-    "baseURL": "/_ipx",
-    "alias": {},
-    "fs": {
-      "dir": [
-        "/home/runner/workspace/public"
-      ]
+  "content": {
+    "databaseVersion": "v3.5.0",
+    "version": "3.6.1",
+    "database": {
+      "type": "sqlite",
+      "filename": "./contents.sqlite"
     },
-    "http": {
-      "domains": []
-    }
+    "localDatabase": {
+      "type": "sqlite",
+      "filename": "C:/Users/matem/Desktop/Yazılım/Web/EmrullahPortfolio/.data/content/contents.sqlite"
+    },
+    "integrityCheck": true
   }
 };
 const envOptions = {
@@ -947,11 +982,6 @@ new Proxy(/* @__PURE__ */ Object.create(null), {
     }
     return void 0;
   }
-});
-
-getContext("nitro-app", {
-  asyncContext: false,
-  AsyncLocalStorage: void 0
 });
 
 const config = useRuntimeConfig();
@@ -1269,13 +1299,13 @@ if (!window.__NUXT_DEVTOOLS_TIME_METRIC__) {
 window.__NUXT_DEVTOOLS_TIME_METRIC__.appInit = Date.now()
 `;
 
-const _hurg6qTWH2UVUbzOC4D_lZzfOrNCXCKKKDhKBdafaE = (function(nitro) {
+const _NGCdAQRsAY_o1FHGdc899tYbQOh_pzvUUXj3ge8MA1o = (function(nitro) {
   nitro.hooks.hook("render:html", (htmlContext) => {
     htmlContext.head.push(`<script>${script$1}<\/script>`);
   });
 });
 
-const rootDir = "/home/runner/workspace";
+const rootDir = "C:/Users/matem/Desktop/Yazılım/Web/EmrullahPortfolio";
 
 const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"name":"description","content":"Full-Stack Developer & Creative Designer portfolio"}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],"style":[],"script":[],"noscript":[],"title":"Emrullah Alku - Portfolio"};
 
@@ -1294,7 +1324,7 @@ const devReducers = {
   URL: (data) => data instanceof URL ? data.toString() : void 0
 };
 const asyncContext = getContext("nuxt-dev", { asyncContext: true, AsyncLocalStorage });
-const __u1v7BGBuzDfTVB9QcGiXE0FrCmy1JaRvf0pCtSIYZ0 = (nitroApp) => {
+const _9pyabvbY_f1wxA1mJKMy_YlE6DmbW644ZfUUzsPc2m0 = (nitroApp) => {
   const handler = nitroApp.h3App.handler;
   nitroApp.h3App.handler = (event) => {
     return asyncContext.callAsync({ logs: [], event }, () => handler(event));
@@ -1365,16 +1395,16 @@ function onConsoleLog(callback) {
 
 const script = "\"use strict\";(()=>{const t=window,e=document.documentElement,c=[\"dark\",\"light\"],n=getStorageValue(\"localStorage\",\"nuxt-color-mode\")||\"system\";let i=n===\"system\"?u():n;const r=e.getAttribute(\"data-color-mode-forced\");r&&(i=r),l(i),t[\"__NUXT_COLOR_MODE__\"]={preference:n,value:i,getColorScheme:u,addColorScheme:l,removeColorScheme:d};function l(o){const s=\"\"+o+\"\",a=\"\";e.classList?e.classList.add(s):e.className+=\" \"+s,a&&e.setAttribute(\"data-\"+a,o)}function d(o){const s=\"\"+o+\"\",a=\"\";e.classList?e.classList.remove(s):e.className=e.className.replace(new RegExp(s,\"g\"),\"\"),a&&e.removeAttribute(\"data-\"+a)}function f(o){return t.matchMedia(\"(prefers-color-scheme\"+o+\")\")}function u(){if(t.matchMedia&&f(\"\").media!==\"not all\"){for(const o of c)if(f(\":\"+o).matches)return o}return\"light\"}})();function getStorageValue(t,e){switch(t){case\"localStorage\":return window.localStorage.getItem(e);case\"sessionStorage\":return window.sessionStorage.getItem(e);case\"cookie\":return getCookie(e);default:return null}}function getCookie(t){const c=(\"; \"+window.document.cookie).split(\"; \"+t+\"=\");if(c.length===2)return c.pop()?.split(\";\").shift()}";
 
-const _mgUFTUI2TSTv1tO4h0TG2f53ZZ4OEccot5qHgnOniNM = (function(nitro) {
+const _9qQBOncsExJ0fpk5ufceVBinrSnK1bVENr6RHE2_Y8 = (function(nitro) {
   nitro.hooks.hook("render:html", (htmlContext) => {
     htmlContext.head.push(`<script>${script}<\/script>`);
   });
 });
 
 const plugins = [
-  _hurg6qTWH2UVUbzOC4D_lZzfOrNCXCKKKDhKBdafaE,
-__u1v7BGBuzDfTVB9QcGiXE0FrCmy1JaRvf0pCtSIYZ0,
-_mgUFTUI2TSTv1tO4h0TG2f53ZZ4OEccot5qHgnOniNM
+  _NGCdAQRsAY_o1FHGdc899tYbQOh_pzvUUXj3ge8MA1o,
+_9pyabvbY_f1wxA1mJKMy_YlE6DmbW644ZfUUzsPc2m0,
+_9qQBOncsExJ0fpk5ufceVBinrSnK1bVENr6RHE2_Y8
 ];
 
 function defineRenderHandler(render) {
@@ -1465,9 +1495,122 @@ function publicAssetsURL(...path) {
   return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
 }
 
+const checksums = {
+  "about": "v3.5.0--fAQbEqG_l8eVLggsbPlyjz6t1O9IyS1cUL2xPVPAidk",
+  "education": "v3.5.0--p9INRpzNFsSy0aAMtyW7NdWgyhdmFFGO7hbU5NkfoNo",
+  "repositories": "v3.5.0--a2scndeJSVUTpWl6adh2n7HMSPo0v0R6Eudx7uQLKuU",
+  "contact": "v3.5.0--WqXuNUSIVhZ4wmjqVWSnryIXEzmmVGgokFBsBbiMy9M"
+};
+const checksumsStructure = {
+  "about": "JYd84V2s9Za_s1mClsY2Z_6XzD5W5SHzzbzYENQB8_Q",
+  "education": "4faLPhXuWnEhzBPU8gLW2rMg10a7b83ze7nj50rfrh0",
+  "repositories": "WeLpcOK2lGLITFKJPO_2aXYymITp6NpXVpVPVBkavVQ",
+  "contact": "FC5Hstm0VukwMddOXsnxfP00Zxd2u4s_y5yl5KG0yUQ"
+};
+const tables = {
+  "about": "_content_about",
+  "education": "_content_education",
+  "repositories": "_content_repositories",
+  "contact": "_content_contact",
+  "info": "_content_info"
+};
+const contentManifest = {
+  "about": {
+    "type": "page",
+    "fields": {
+      "id": "string",
+      "title": "string",
+      "body": "json",
+      "description": "string",
+      "extension": "string",
+      "image": "string",
+      "meta": "json",
+      "navigation": "json",
+      "path": "string",
+      "seo": "json",
+      "stem": "string",
+      "subtitle": "string"
+    }
+  },
+  "education": {
+    "type": "page",
+    "fields": {
+      "id": "string",
+      "title": "string",
+      "body": "json",
+      "certifications": "json",
+      "description": "string",
+      "education": "json",
+      "extension": "string",
+      "meta": "json",
+      "navigation": "json",
+      "path": "string",
+      "seo": "json",
+      "skills": "json",
+      "stem": "string",
+      "subtitle": "string"
+    }
+  },
+  "repositories": {
+    "type": "page",
+    "fields": {
+      "id": "string",
+      "title": "string",
+      "body": "json",
+      "categories": "json",
+      "description": "string",
+      "extension": "string",
+      "githubStats": "json",
+      "meta": "json",
+      "navigation": "json",
+      "path": "string",
+      "projects": "json",
+      "seo": "json",
+      "stem": "string",
+      "subtitle": "string"
+    }
+  },
+  "contact": {
+    "type": "page",
+    "fields": {
+      "id": "string",
+      "title": "string",
+      "availability": "json",
+      "body": "json",
+      "contactInfo": "json",
+      "description": "string",
+      "extension": "string",
+      "faqs": "json",
+      "meta": "json",
+      "navigation": "json",
+      "path": "string",
+      "seo": "json",
+      "socials": "json",
+      "stem": "string",
+      "subtitle": "string"
+    }
+  },
+  "info": {
+    "type": "data",
+    "fields": {}
+  }
+};
+
+async function fetchDatabase(event, collection) {
+  return await $fetch(`/__nuxt_content/${collection}/sql_dump.txt`, {
+    context: event ? { cloudflare: event.context.cloudflare } : {},
+    responseType: "text",
+    headers: {
+      "content-type": "text/plain",
+      ...event?.node?.req?.headers?.cookie ? { cookie: event.node.req.headers.cookie } : {}
+    },
+    query: { v: checksums[String(collection)], t: Date.now()  }
+  });
+}
+
 const warnOnceSet = /* @__PURE__ */ new Set();
 const DEFAULT_ENDPOINT = "https://api.iconify.design";
-const _KxA9rZ = defineCachedEventHandler(async (event) => {
+const _b0vGbh = defineCachedEventHandler(async (event) => {
   const url = getRequestURL(event);
   if (!url)
     return createError({ status: 400, message: "Invalid icon request" });
@@ -1584,8 +1727,8 @@ function setSSRError(ssrContext, error) {
 
 const APP_ROOT_OPEN_TAG = `<${appRootTag}${propsToString(appRootAttrs)}>`;
 const APP_ROOT_CLOSE_TAG = `</${appRootTag}>`;
-const getServerEntry = () => import('file:///home/runner/workspace/.nuxt/dist/server/server.mjs').then((r) => r.default || r);
-const getClientManifest = () => import('file:///home/runner/workspace/.nuxt/dist/server/client.manifest.mjs').then((r) => r.default || r).then((r) => typeof r === "function" ? r() : r);
+const getServerEntry = () => import('file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/.nuxt/dist/server/server.mjs').then((r) => r.default || r);
+const getClientManifest = () => import('file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/.nuxt/dist/server/client.manifest.mjs').then((r) => r.default || r).then((r) => typeof r === "function" ? r() : r);
 const getSSRRenderer = lazyCachedFunction(async () => {
   const manifest = await getClientManifest();
   if (!manifest) {
@@ -1831,33 +1974,309 @@ async function getIslandContext(event) {
   return ctx;
 }
 
-const _egoBqy = lazyEventHandler(() => {
-  const opts = useRuntimeConfig().ipx || {};
-  const fsDir = opts?.fs?.dir ? (Array.isArray(opts.fs.dir) ? opts.fs.dir : [opts.fs.dir]).map((dir) => isAbsolute(dir) ? dir : fileURLToPath(new URL(dir, globalThis._importMeta_.url))) : void 0;
-  const fsStorage = opts.fs?.dir ? ipxFSStorage({ ...opts.fs, dir: fsDir }) : void 0;
-  const httpStorage = opts.http?.domains ? ipxHttpStorage({ ...opts.http }) : void 0;
-  if (!fsStorage && !httpStorage) {
-    throw new Error("IPX storage is not configured!");
+const _GYjy4X = eventHandler(async (event) => {
+  const collection = getRouterParam(event, "collection");
+  setHeader(event, "Content-Type", "text/plain");
+  const data = await useStorage().getItem(`build:content:database.compressed.mjs`) || "";
+  if (data) {
+    const lineStart = `export const ${collection} = "`;
+    const content = String(data).split("\n").find((line) => line.startsWith(lineStart));
+    if (content) {
+      return content.substring(lineStart.length, content.length - 1);
+    }
   }
-  const ipxOptions = {
-    ...opts,
-    storage: fsStorage || httpStorage,
-    httpStorage
-  };
-  const ipx = createIPX(ipxOptions);
-  const ipxHandler = createIPXH3Handler(ipx);
-  return useBase(opts.baseURL, ipxHandler);
+  return await import('file://C:/Users/matem/Desktop/Yaz%C4%B1l%C4%B1m/Web/EmrullahPortfolio/.nuxt/content/database.compressed.mjs').then((m) => m[collection]);
 });
 
-const _lazy_rVqwY9 = () => Promise.resolve().then(function () { return renderer$1; });
+async function decompressSQLDump(base64Str, compressionType = "gzip") {
+  const binaryData = Uint8Array.from(atob(base64Str), (c) => c.charCodeAt(0));
+  const response = new Response(new Blob([binaryData]));
+  const decompressedStream = response.body?.pipeThrough(new DecompressionStream(compressionType));
+  const text = await new Response(decompressedStream).text();
+  return JSON.parse(text);
+}
+
+function refineContentFields(sql, doc) {
+  const fields = findCollectionFields(sql);
+  const item = { ...doc };
+  for (const key in item) {
+    if (fields[key] === "json" && item[key] && item[key] !== "undefined") {
+      item[key] = JSON.parse(item[key]);
+    }
+    if (fields[key] === "boolean" && item[key] !== "undefined") {
+      item[key] = Boolean(item[key]);
+    }
+  }
+  for (const key in item) {
+    if (item[key] === "NULL") {
+      item[key] = void 0;
+    }
+  }
+  return item;
+}
+function findCollectionFields(sql) {
+  const table = sql.match(/FROM\s+(\w+)/);
+  if (!table) {
+    return {};
+  }
+  const info = contentManifest[getCollectionName(table[1])];
+  return info?.fields || {};
+}
+function getCollectionName(table) {
+  return table.replace(/^_content_/, "");
+}
+
+let db;
+function loadDatabaseAdapter(config) {
+  const { database, localDatabase } = config;
+  if (!db) {
+    {
+      db = localAdapter(refineDatabaseConfig(localDatabase));
+    }
+  }
+  return {
+    all: async (sql, params = []) => {
+      return db.prepare(sql).all(...params).then((result) => (result || []).map((item) => refineContentFields(sql, item)));
+    },
+    first: async (sql, params = []) => {
+      return db.prepare(sql).get(...params).then((item) => item ? refineContentFields(sql, item) : item);
+    },
+    exec: async (sql, params = []) => {
+      return db.prepare(sql).run(...params);
+    }
+  };
+}
+const checkDatabaseIntegrity = {};
+const integrityCheckPromise = {};
+async function checkAndImportDatabaseIntegrity(event, collection, config) {
+  if (checkDatabaseIntegrity[String(collection)] !== false) {
+    checkDatabaseIntegrity[String(collection)] = false;
+    integrityCheckPromise[String(collection)] = integrityCheckPromise[String(collection)] || _checkAndImportDatabaseIntegrity(event, collection, checksums[String(collection)], checksumsStructure[String(collection)], config).then((isValid) => {
+      checkDatabaseIntegrity[String(collection)] = !isValid;
+    }).catch((error) => {
+      console.error("Database integrity check failed", error);
+      checkDatabaseIntegrity[String(collection)] = true;
+      integrityCheckPromise[String(collection)] = null;
+    });
+  }
+  if (integrityCheckPromise[String(collection)]) {
+    await integrityCheckPromise[String(collection)];
+  }
+}
+async function _checkAndImportDatabaseIntegrity(event, collection, integrityVersion, structureIntegrityVersion, config) {
+  const db2 = loadDatabaseAdapter(config);
+  const before = await db2.first(`SELECT * FROM ${tables.info} WHERE id = ?`, [`checksum_${collection}`]).catch(() => null);
+  if (before?.version && !String(before.version)?.startsWith(`${config.databaseVersion}--`)) {
+    await db2.exec(`DROP TABLE IF EXISTS ${tables.info}`);
+    before.version = "";
+  }
+  const unchangedStructure = before?.structureVersion === structureIntegrityVersion;
+  if (before?.version) {
+    if (before.version === integrityVersion) {
+      if (before.ready) {
+        return true;
+      }
+      await waitUntilDatabaseIsReady(db2, collection);
+      return true;
+    }
+    await db2.exec(`DELETE FROM ${tables.info} WHERE id = ?`, [`checksum_${collection}`]);
+    if (!unchangedStructure) {
+      await db2.exec(`DROP TABLE IF EXISTS ${tables[collection]}`);
+    }
+  }
+  const dump = await loadDatabaseDump(event, collection).then(decompressSQLDump);
+  const dumpLinesHash = dump.map((row) => row.split(" -- ").pop());
+  let hashesInDb = /* @__PURE__ */ new Set();
+  if (unchangedStructure) {
+    const hashListFromTheDump = new Set(dumpLinesHash);
+    const hashesInDbRecords = await db2.all(`SELECT __hash__ FROM ${tables[collection]}`).catch(() => []);
+    hashesInDb = new Set(hashesInDbRecords.map((r) => r.__hash__));
+    const hashesToDelete = hashesInDb.difference(hashListFromTheDump);
+    if (hashesToDelete.size) {
+      await db2.exec(`DELETE FROM ${tables[collection]} WHERE __hash__ IN (${Array(hashesToDelete.size).fill("?").join(",")})`, Array.from(hashesToDelete));
+    }
+  }
+  await dump.reduce(async (prev, sql, index) => {
+    await prev;
+    const hash = dumpLinesHash[index];
+    const statement = sql.substring(0, sql.length - hash.length - 4);
+    if (unchangedStructure) {
+      if (hash === "structure") {
+        return Promise.resolve();
+      }
+      if (hashesInDb.has(hash)) {
+        return Promise.resolve();
+      }
+    }
+    await db2.exec(statement).catch((err) => {
+      const message = err.message || "Unknown error";
+      console.error(`Failed to execute SQL ${sql}: ${message}`);
+    });
+  }, Promise.resolve());
+  const after = await db2.first(`SELECT version FROM ${tables.info} WHERE id = ?`, [`checksum_${collection}`]).catch(() => ({ version: "" }));
+  return after?.version === integrityVersion;
+}
+const REQUEST_TIMEOUT = 90;
+async function waitUntilDatabaseIsReady(db2, collection) {
+  let iterationCount = 0;
+  let interval;
+  await new Promise((resolve, reject) => {
+    interval = setInterval(async () => {
+      const row = await db2.first(`SELECT ready FROM ${tables.info} WHERE id = ?`, [`checksum_${collection}`]).catch(() => ({ ready: true }));
+      if (row?.ready) {
+        clearInterval(interval);
+        resolve(0);
+      }
+      if (iterationCount++ > REQUEST_TIMEOUT) {
+        clearInterval(interval);
+        reject(new Error("Waiting for another database initialization timed out"));
+      }
+    }, 1e3);
+  }).catch((e) => {
+    throw e;
+  }).finally(() => {
+    if (interval) {
+      clearInterval(interval);
+    }
+  });
+}
+async function loadDatabaseDump(event, collection) {
+  return await fetchDatabase(event, String(collection)).catch((e) => {
+    console.error("Failed to fetch compressed dump", e);
+    return "";
+  });
+}
+function refineDatabaseConfig(config) {
+  if (config.type === "d1") {
+    return { ...config, bindingName: config.bindingName || config.binding };
+  }
+  if (config.type === "sqlite") {
+    const _config = { ...config };
+    if (config.filename === ":memory:") {
+      return { name: "memory" };
+    }
+    if ("filename" in config) {
+      const filename = isAbsolute(config?.filename || "") || config?.filename === ":memory:" ? config?.filename : new URL(config.filename, globalThis._importMeta_.url).pathname;
+      _config.path = process.platform === "win32" && filename.startsWith("/") ? filename.slice(1) : filename;
+    }
+    return _config;
+  }
+  return config;
+}
+
+const SQL_COMMANDS = /SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|\$/i;
+const SQL_COUNT_REGEX = /COUNT\((DISTINCT )?([a-z_]\w+|\*)\)/i;
+const SQL_SELECT_REGEX = /^SELECT (.*) FROM (\w+)( WHERE .*)? ORDER BY (["\w,\s]+) (ASC|DESC)( LIMIT \d+)?( OFFSET \d+)?$/;
+function assertSafeQuery(sql, collection) {
+  if (!sql) {
+    throw new Error("Invalid query");
+  }
+  const cleanedupQuery = cleanupQuery(sql);
+  if (cleanedupQuery !== sql) {
+    throw new Error("Invalid query");
+  }
+  const match = sql.match(SQL_SELECT_REGEX);
+  if (!match) {
+    throw new Error("Invalid query");
+  }
+  const [_, select, from, where, orderBy, order, limit, offset] = match;
+  const columns = select.trim().split(", ");
+  if (columns.length === 1) {
+    if (columns[0] !== "*" && !columns[0].match(SQL_COUNT_REGEX) && !columns[0].match(/^"[a-z_]\w+"$/i)) {
+      throw new Error("Invalid query");
+    }
+  } else if (!columns.every((column) => column.match(/^"[a-z_]\w+"$/i))) {
+    throw new Error("Invalid query");
+  }
+  if (from !== `_content_${collection}`) {
+    throw new Error("Invalid query");
+  }
+  if (where) {
+    if (!where.startsWith(" WHERE (") || !where.endsWith(")")) {
+      throw new Error("Invalid query");
+    }
+    const noString = cleanupQuery(where, { removeString: true });
+    if (noString.match(SQL_COMMANDS)) {
+      throw new Error("Invalid query");
+    }
+  }
+  const _order = (orderBy + " " + order).split(", ");
+  if (!_order.every((column) => column.match(/^("[a-zA-Z_]+"|[a-zA-Z_]+) (ASC|DESC)$/))) {
+    throw new Error("Invalid query");
+  }
+  if (limit !== void 0 && !limit.match(/^ LIMIT \d+$/)) {
+    throw new Error("Invalid query");
+  }
+  if (offset !== void 0 && !offset.match(/^ OFFSET \d+$/)) {
+    throw new Error("Invalid query");
+  }
+  return true;
+}
+function cleanupQuery(query, options = { removeString: false }) {
+  let inString = false;
+  let stringFence = "";
+  let result = "";
+  for (let i = 0; i < query.length; i++) {
+    const char = query[i];
+    const prevChar = query[i - 1];
+    const nextChar = query[i + 1];
+    if (char === "'" || char === '"') {
+      if (!options?.removeString) {
+        result += char;
+        continue;
+      }
+      if (inString) {
+        if (char !== stringFence || nextChar === stringFence || prevChar === stringFence) {
+          continue;
+        }
+        inString = false;
+        stringFence = "";
+        continue;
+      } else {
+        inString = true;
+        stringFence = char;
+        continue;
+      }
+    }
+    if (!inString) {
+      if (char === "-" && nextChar === "-") {
+        return result;
+      }
+      if (char === "/" && nextChar === "*") {
+        i += 2;
+        while (i < query.length && !(query[i] === "*" && query[i + 1] === "/")) {
+          i += 1;
+        }
+        i += 2;
+        continue;
+      }
+      result += char;
+    }
+  }
+  return result;
+}
+
+const _fNMBxO = eventHandler(async (event) => {
+  const { sql } = await readBody(event);
+  const collection = getRouterParam(event, "collection");
+  assertSafeQuery(sql, collection);
+  const conf = useRuntimeConfig().content;
+  if (conf.integrityCheck) {
+    await checkAndImportDatabaseIntegrity(event, collection, conf);
+  }
+  return loadDatabaseAdapter(conf).all(sql);
+});
+
+const _lazy_M5N4y1 = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
-  { route: '/__nuxt_error', handler: _lazy_rVqwY9, lazy: true, middleware: false, method: undefined },
-  { route: '/api/_nuxt_icon/:collection', handler: _KxA9rZ, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt_error', handler: _lazy_M5N4y1, lazy: true, middleware: false, method: undefined },
+  { route: '/api/_nuxt_icon/:collection', handler: _b0vGbh, lazy: false, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
-  { route: '/_ipx/**', handler: _egoBqy, lazy: false, middleware: false, method: undefined },
-  { route: '/_fonts/**', handler: _lazy_rVqwY9, lazy: true, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_rVqwY9, lazy: true, middleware: false, method: undefined }
+  { route: '/__nuxt_content/:collection/sql_dump.txt', handler: _GYjy4X, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt_content/:collection/query', handler: _fNMBxO, lazy: false, middleware: false, method: undefined },
+  { route: '/_fonts/**', handler: _lazy_M5N4y1, lazy: true, middleware: false, method: undefined },
+  { route: '/**', handler: _lazy_M5N4y1, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {
