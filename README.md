@@ -12,8 +12,6 @@
 
 </div>
 
-<details>
-
 ## About The Project
 
 This is the repository for my personal portfolio website, built to showcase my skills, projects, and professional journey. The entire site is designed to be dynamic and easily manageable, leveraging the power of Nuxt.js and Nuxt Content. All content, from the "About Me" story to my educational background and projects, is managed through simple Markdown files.
@@ -81,5 +79,3 @@ To get a local copy up and running, follow these simple steps.
 ### 📜 License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-</details>
